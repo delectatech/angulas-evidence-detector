@@ -5,3 +5,4 @@ tmp/
 temp/
 pnpm-lock.yaml
 .pnpm-debug.log
+.angular/cache
