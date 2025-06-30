@@ -1,0 +1,101 @@
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css' layer(bootstrap);
+@import '../node_modules/primeng/resources/primeng.min.css' layer(primeng);
+@import '../node_modules/primeng/resources/themes/aura-light-blue/theme.css' layer(auraTheme);
+@layer bootstrap, primeng, auraTheme;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+$font-family: 'Sarabun', sans-serif;
+$white: #ffffff;
+$black: #000000;
+$primary: #626ed4;
+$secondary: #3c445a;
+$success: #02a499;
+$info: #38a4f8;
+$warning: #f8b425;
+$danger: #ec4561;
+$dark: #2a3142;
+$muted: #9ca8b3;
+$separator: #444a58;
+$gray-badge: #7d7d7d;
+$gray: #e3e5e9;
+$muted: #9ca8b3;
+$background: #efefef;
+$nav-bar: #333547;
+$text: #5b626b;
+$box-shadow: 0 0.5rem 1rem rgba($black, 0.15) !default;
+$box-shadow-sm: 0 0.125rem 0.25rem rgba($black, 0.075) !default;
+$box-shadow-lg: 0 1rem 3rem rgba($black, 0.175) !default;
+$box-shadow-inset: inset 0 1px 2px rgba($black, 0.075) !default;
+
+@layer global-tweaks {
+  * {
+    font-family: $font-family;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  main {
+    background-color: $background;
+  }
+
+  .p-component-overlay {
+    // Glass blur effect
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .p-chip {
+    margin: 4px;
+  }
+
+  .component-container {
+    background: $white;
+    padding: 1rem;
+    border-radius: 15px;
+    box-shadow: $box-shadow;
+  }
+
+  a.p-button {
+    text-decoration: none;
+  }
+
+  .p-breadcrumb {
+    margin: 10px 0;
+    background: $gray;
+  }
+
+  .p-paginator .p-paginator-pages .p-paginator-page {
+    margin-right: 0.25rem !important;
+    margin-left: 0.25rem !important;
+  }
+
+  .header-title-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 200;
+  }
+}
+
+@layer animations {
+  .animation-bounce-spin {
+    animation: bounce-spin 1s infinite;
+  }
+
+  @keyframes bounce-spin {
+    0% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0) rotate(360deg);
+    }
+  }
+}

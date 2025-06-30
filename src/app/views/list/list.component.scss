@@ -1,0 +1,73 @@
+:host ::ng-deep {
+  .p-progressbar {
+    height: 0.5rem;
+    background-color: #d8dadc;
+
+    .p-progressbar-value {
+      background-color: #607d8b;
+    }
+  }
+}
+
+.component-container {
+  background: white;
+  padding: 1rem;
+  border-radius: 15px;
+  box-shadow: 0 0.5rem 1rem rgba(black, 0.15);
+  max-width: 85%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-responsive {
+  margin-top: 1rem;
+  width: 100%;
+  overflow-x: auto; /* Permitir scroll horizontal si es necesario */
+}
+
+.p-datatable {
+  width: 100%; /* Asegurar que la tabla ocupe todo el ancho disponible */
+  table-layout: auto; /* Dejar que las columnas se ajusten automáticamente */
+}
+
+.p-datatable-wrapper {
+  overflow: visible !important; /* Evitar que se corte la paginación */
+}
+
+.p-paginator {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.slider {
+  flex-grow: 1;
+  margin: 0 10px !important;
+}
+
+.loading {
+  background-color: rgba(255, 255, 255, 0.445);
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  pointer-events: none;
+}
+
+.namePopUp {
+  cursor: pointer;
+  color: #343a40;
+  transition: color 0.2s ease-in-out;
+}
+
+.namePopUp:hover {
+  color: #007bff;
+}
+
+i {
+  color: #007bff;
+}
+
+.filteredTotal {
+  max-width: 200px;
+}

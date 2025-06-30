@@ -1,0 +1,273 @@
+:host ::ng-deep {
+  .p-progressbar {
+    height: 0.8rem;
+    background-color: #d8dadc;
+
+    .p-progressbar-value {
+      background-color: #607d8b;
+    }
+  }
+}
+
+i {
+  color: #007bff;
+}
+
+.namePopUp {
+  cursor: pointer;
+  color: #343a40;
+  transition: color 0.2s ease-in-out;
+}
+
+.namePopUp:hover {
+  color: #007bff;
+}
+
+.component-container {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 0.5rem 1rem rgba(black, 0.15);
+  max-width: 65%;
+  margin: 1rem auto;
+  margin-top: 0.25em !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px #dee2e6; /* Light border around the table */
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 1rem;
+  vertical-align: middle;
+  background-color: white;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.custom-table th {
+  background-color: #f8f9fa; /* Slightly different background for header */
+  text-align: left;
+}
+
+.custom-table tbody tr:hover td {
+  background-color: #d9ecff59;
+  // box-shadow: inset 0 0 5px rgba(168, 167, 167, 0.1); /* Slight shadow on hover */
+}
+
+.custom-table tbody tr {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.custom-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.volver-container {
+  display: inline-block; /* Para que la animación se aplique al conjunto ícono + texto */
+}
+
+.volver-text {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease; /* Transición para color y transformación */
+}
+
+.volver-text:hover {
+  color: #2f94ffe8; /* Cambia el color del texto al azul de Bootstrap */
+  transform: translateX(5px); /* Mueve ligeramente a la derecha */
+}
+
+.volver-text i {
+  transition: transform 0.3s ease; /* Transición para la transformación del ícono */
+}
+
+.volver-text:hover i {
+  transform: translateX(-3px); /* Mueve ligeramente a la izquierda el ícono */
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.skeleton {
+  background-color: #e0e0e0; /* Color de fondo */
+  background-image: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  //   aspect-ratio: 1/1;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  background-color: #f0f0f0;
+  margin-left: 30px;
+}
+
+.skeleton-text {
+  width: 100%;
+  height: 1.2em; /* Simula el tamaño de una línea de texto */
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.skeleton-tag {
+  background-color: #d0e7ff; /* Color de fondo azul claro */
+  background-image: linear-gradient(90deg, #d0e7ff 25%, #a3d2ff 50%, #d0e7ff 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  width: 50px !important; /* Simula el ancho del p-tag */
+  height: 20px; /* Simula la altura del p-tag */
+  border-radius: 5px !important; /* Para simular los bordes redondeados del p-tag */
+  margin-bottom: 10px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Para añadir un margen entre placeholders y que no estén pegados */
+.image-container {
+  margin: 10px;
+  gap: 10px;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%; /* Centrado verticalmente */
+  left: 50%; /* Centrado horizontalmente */
+  transform: translate(-50%, -50%); /* Mueve el texto para que quede exactamente en el centro */
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.75em;
+  font-family: 'Sarabun', sans-serif;
+  color: #607d8b; /* Color del texto */
+  z-index: 1; /* Asegura que esté sobre la barra de progreso */
+}
+
+/* Sombra predeterminada para las tarjetas */
+::ng-deep .p-card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.3s ease; /* Transición suave para el hover */
+  border-radius: 8px; /* Bordes redondeados */
+}
+
+/* Sombra más pronunciada en hover */
+::ng-deep .p-card:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Posicionar el p-tag en la esquina superior derecha */
+.positioned-tag {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 10;
+}
+
+/* Estilo para toda la barra de desplazamiento */
+::ng-deep .p-scrollpanel .p-scrollpanel-bar {
+  width: 7px; /* Aumenta el ancho del scrollbar */
+  background-color: rgba(112, 112, 112, 0.589); /* Color de fondo de la barra */
+}
+::ng-deep .p-scrollpanel .p-scrollpanel-bar:hover {
+  width: 7px; /* Aumenta el ancho del scrollbar */
+  background-color: rgba(112, 112, 112, 0.774); /* Color de fondo de la barra */
+}
+
+::ng-deep .p-scrollpanel .p-scrollpanel-content {
+  overflow: scroll !important; /* Forzar siempre el scroll */
+}
+
+/* Reducir el padding del panel para ahorrar espacio */
+.p-panel .p-panel-content {
+  padding: 10px 15px; /* Reduce el espacio interno */
+}
+
+/* Ajustes en las columnas y switches */
+.filter-container .col-md-4 {
+  margin-bottom: 10px; /* Ajusta el espaciado entre los elementos */
+}
+
+/* Ajustar el espacio entre las etiquetas y los switches */
+.filter-container label {
+  margin-right: 10px;
+  font-size: 0.9rem; /* Reducir el tamaño de la fuente si es necesario */
+  font-weight: 500;
+}
+
+/* Reducir la altura del panel cuando está abierto */
+.p-panel-content {
+  min-height: auto !important; /* Evita alturas mínimas innecesarias */
+}
+
+/* Eliminar espacio adicional en la parte inferior */
+.p-panel-content {
+  margin-bottom: 0px !important;
+}
+
+.imageGallery {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.3s ease; /* Transición suave para el hover */
+  aspect-ratio: 1/1;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 8px;
+  opacity: 0;
+
+  &.loaded {
+    opacity: 1;
+  }
+}
+
+/* Sombra más pronunciada en hover */
+.imageGallery:hover {
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+}
+
+// .custom-card-header {
+//     width: 100%; /* Abarca todo el ancho del tab */
+//     box-shadow: 0px 7px 7px -2px rgba(0, 0, 0, 0.1); /* Sombra solo hacia abajo */
+//     padding: 5px; /* Ajuste de padding para el contenido */
+// }
+
+.custom-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  background-color: #fff;
+  box-shadow: 0px 7px 5px -2px rgba(0, 0, 0, 0.1); /* Sombra solo hacia abajo */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}

@@ -1,0 +1,4 @@
+<app-header *ngIf="showHeader"></app-header>
+<div [@routeAnimations]="getRouteAnimationData(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
+</div>

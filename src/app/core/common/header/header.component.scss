@@ -1,0 +1,39 @@
+.app-header {
+  background-color: #f8f9fa;
+  /* Color de fondo claro */
+  color: #343a40;
+  /* Texto oscuro */
+
+  .header-logo img {
+    height: 50px;
+  }
+
+  .header-title {
+    flex-grow: 1;
+  }
+
+  .header-actions button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+.header-actions {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #343a40;
+  /* Color por defecto */
+  transition: color 0.3s ease-in-out;
+  /* Transición suave de color */
+
+  &:hover {
+    color: #007bff;
+    /* Color azul al pasar el mouse */
+  }
+
+  i {
+    margin-right: 0.5rem;
+    /* Espacio entre el icono y el texto */
+  }
+}

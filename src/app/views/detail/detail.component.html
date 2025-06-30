@@ -1,0 +1,211 @@
+<div class="p-mt-3">
+  <div class="mx-4 my-4 volver-container">
+    <h4 class="volver-text" (click)="router.navigate(['/list']); sendTracking('go_back_detail', { parameters: { establishment_uid: this.uid } })">
+      <h5><i class="fa-regular fa-circle-left text-primary text-opacity-75"></i><span class="mx-1">Volver</span></h5>
+    </h4>
+  </div>
+  <div class="mx-4 my-2">
+    <h2 class="text-center">
+      <span *ngIf="!establishmentData" class="skeleton skeleton-text" style="width: 100%"></span>
+      {{ establishmentData ? establishmentData.name : '' }}
+    </h2>
+    <section class="component-container">
+      <p-tabView (onChange)="handleTabChange($event)">
+        <!-- Básic Information -->
+        <p-tabPanel header="Información Básica" leftIcon="pi pi-info-circle">
+          <table class="table custom-table">
+            <tbody>
+              <tr>
+                <th scope="row" style="width: 40%">UID:</th>
+                <td style="width: 60%">
+                  <div *ngIf="!establishmentData" class="skeleton skeleton-text" style="width: 100%"></div>
+                  {{ establishmentData?.restaurantUidentifier ? establishmentData.restaurantUidentifier : '' }}
+                </td>
+              </tr>
+              <tr>
+                <th scope="row" style="width: 40%">Dirección:</th>
+                <td style="width: 60%">
+                  <div *ngIf="!establishmentData" class="skeleton skeleton-text" style="width: 100%"></div>
+                  <span [ngClass]="{ namePopUp: establishmentData?.links.googleUrl || establishmentData?.links.tripAdvisorUrl }" (click)="redirectDirection(establishmentData?.links)">
+                    {{ establishmentData ? establishmentData.streetAddress : '' }}
+                    <i *ngIf="establishmentData?.links.googleUrl" class="mx-1 fa-regular fa-map"></i>
+                    <i *ngIf="establishmentData?.links.tripAdvisorUrl && !establishmentData?.links.googleUrl" class="fa-solid fa-utensils"></i>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row" style="width: 40%">Provincia:</th>
+                <td style="width: 60%">
+                  <div *ngIf="!establishmentData" class="skeleton skeleton-text" style="width: 100%"></div>
+                  {{ establishmentData ? establishmentData.provinceName : '' }}
+                </td>
+              </tr>
+              <tr>
+                <th scope="row" style="width: 40%">Región:</th>
+                <td style="width: 60%">
+                  <div *ngIf="!establishmentData" class="skeleton skeleton-text" style="width: 100%"></div>
+                  {{ establishmentData ? establishmentData.regionName : '' }}
+                </td>
+              </tr>
+              <tr>
+                <th scope="row" style="width: 40%">Estado:</th>
+                <td style="width: 60%">
+                  <div *ngIf="!establishmentData" class="skeleton-tag" style="width: 100px; height: 24px; border-radius: 10px"></div>
+                  <span
+                    *ngIf="establishmentData"
+                    [ngClass]="{
+                      'p-text-success': establishmentData.status === 'OPERATIONAL',
+                      'text-danger': establishmentData.status !== 'OPERATIONAL',
+                    }"
+                  >
+                    <p-tag [value]="establishmentData.status === 'OPERATIONAL' ? 'Abierto' : 'Cerrado'" [severity]="establishmentData.status === 'OPERATIONAL' ? 'info' : 'danger'"> </p-tag>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row" style="width: 45%">Ratio de Potencial:</th>
+                <td style="width: 55%">
+                  @if (establishmentData?.potential_ratio === 0 || !establishmentData) {
+                    <div style="position: relative; width: 100%">
+                      <p-progressBar [value]="establishmentData ? establishmentData.potential_ratio : 0"></p-progressBar>
+                      <div class="progress-text">{{ establishmentData?.potential_ratio || 0 }}%</div>
+                    </div>
+                  } @else {
+                    <p-progressBar [value]="establishmentData.potential_ratio"></p-progressBar>
+                  }
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </p-tabPanel>
+
+        <!-- Images Gallery -->
+        <p-tabPanel header="Galería de Imágenes" leftIcon="pi pi-image">
+          @if (!noImagesFound) {
+            <div class="custom-card-header row p-3">
+              <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <label for="filterTvSoccer" class="me-2 mb-1"><p-tag [value]="'TV con Fútbol'" [severity]="'success'" /></label>
+                <p-inputSwitch [(ngModel)]="filterTvSoccer" (onChange)="applyFilter()" id="filterTvSoccer"></p-inputSwitch>
+              </div>
+              <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <label for="filterTv" class="me-2 mb-1"><p-tag [value]="'TV:'" [severity]="'info'" /></label>
+                <p-inputSwitch [(ngModel)]="filterTv" (onChange)="applyFilter()" id="filterTv"></p-inputSwitch>
+              </div>
+            </div>
+
+            @if (!noImagesFiltered) {
+              <p-scrollPanel [style]="{ height: '50vh' }">
+                <div class="grid mx-auto" style="max-width: 800px; position: relative">
+                  <div class="row justify-content-center">
+                    <div
+                      *ngFor="let image of filteredImages; let index = index"
+                      class="col-12 col-sm-6 col-md-4 d-flex flex-column align-items-center mb-3 image-container"
+                      style="width: 200px; height: 250px; position: relative; overflow: hidden"
+                    >
+                      <small class="text-muted">{{ shortDate(image.date) }}</small>
+                      @if (!image.isLoaded) {
+                        <p-skeleton size="176px" styleClass="mr-2" />
+                      }
+                      <img
+                        [src]="image.image_url + '?size=300x350'"
+                        [alt]="image.label == 'tv' ? 'tv' : 'TV con Fútbol'"
+                        [ngClass]="{
+                          loaded: image.isLoaded,
+                        }"
+                        class="imageGallery"
+                        (click)="imageClick(index, image.image_url + '?size=300x350')"
+                        (load)="image.isLoaded = true"
+                        loading="lazy"
+                      />
+                      <div *ngIf="image.isLoaded" style="width: 100%; text-align: center">
+                        <p-tag class="my-2" [value]="image.label == 'tv' ? 'TV' : 'TV con Fútbol'" [severity]="getSeverity(image.label)" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p-galleria
+                  [value]="filteredImages"
+                  [(visible)]="displayGallery"
+                  [(activeIndex)]="activeIndex"
+                  [responsiveOptions]="responsiveOptions"
+                  [numVisible]="7"
+                  [circular]="true"
+                  [fullScreen]="true"
+                  [showItemNavigators]="true"
+                  [showThumbnails]="false"
+                >
+                  <!--  -->
+                  <ng-template pTemplate="item" let-item>
+                    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; padding: 100px 0; position: relative">
+                      <img [src]="item.image_url" style="max-width: 100%; max-height: 100%; object-fit: contain" />
+                      <div style="position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%); text-align: center; width: 100%">
+                        <h4 style="margin-top: 0.2rem; color: #ffffff">
+                          <p-tag class="my-2" [value]="item.label == 'tv' ? 'TV' : 'TV con Fútbol'" [severity]="getSeverity(item.label)" />
+                        </h4>
+                      </div>
+                    </div>
+                  </ng-template>
+                </p-galleria>
+              </p-scrollPanel>
+            } @else {
+              <p-messages class="my-2" [(value)]="warningMessages[2]" [enableService]="false" [closable]="false" />
+            }
+          } @else {
+            <p-messages class="my-2" [(value)]="warningMessages[0]" [enableService]="false" [closable]="false" />
+          }
+        </p-tabPanel>
+        <!-- Comments Gallery -->
+        <p-tabPanel header="Comentarios" leftIcon="pi pi-comments">
+          @if (!noCommentsFound) {
+            <div class="custom-card-header row p-3">
+              <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <label for="filterSoccerComment" class="me-2 mb-1"><p-tag [value]="'Comentario de Fútbol'" [severity]="'success'" /></label>
+                <p-inputSwitch [(ngModel)]="filterSoccerComment" (onChange)="applyCommentFilter()" id="filterSoccerComment"></p-inputSwitch>
+              </div>
+              <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <label for="filterSportsComment" class="me-2 mb-1"><p-tag [value]="'Comentario de Deportes'" [severity]="'info'" /></label>
+                <p-inputSwitch [(ngModel)]="filterSportsComment" (onChange)="applyCommentFilter()" id="filterSportsComment"></p-inputSwitch>
+              </div>
+            </div>
+
+            @if (!noCommentsFiltered) {
+              <p-scrollPanel class="my-4" [style]="{ height: '50vh' }">
+                <div>
+                  <div class="grid mx-auto my-4" style="max-width: 800px">
+                    <div class="row">
+                      <div *ngFor="let comment of filteredComments; let i = index" class="col-12 d-flex flex-column mb-3">
+                        <p-card class="w-100" [style]="{ position: 'relative' }">
+                          <ng-template pTemplate="header">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <h4 class="mx-4 my-4 d-flex align-items-center">
+                                <i class="pi pi-calendar mx-2"></i>
+                                {{ capitalizeDate(comment.date) }}
+                              </h4>
+                              <p-tag
+                                class="positioned-tag"
+                                [value]="comment.label === 'soccer_comment' ? 'Comentario de Fútbol' : 'Comentario de Deportes'"
+                                [severity]="comment.label === 'soccer_comment' ? 'success' : 'info'"
+                              >
+                              </p-tag>
+                            </div>
+                          </ng-template>
+                          <p>
+                            {{ comment.comment_text }}
+                          </p>
+                        </p-card>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </p-scrollPanel>
+            } @else {
+              <p-messages class="my-2" [(value)]="warningMessages[3]" [enableService]="false" [closable]="false" />
+            }
+          } @else {
+            <p-messages class="my-2" [(value)]="warningMessages[1]" [enableService]="false" [closable]="false" />
+          }
+        </p-tabPanel>
+      </p-tabView>
+    </section>
+  </div>
+</div>
