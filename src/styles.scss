@@ -1,7 +1,7 @@
-@import '../node_modules/bootstrap/dist/css/bootstrap.min.css' layer(bootstrap);
-@import '../node_modules/primeng/resources/primeng.min.css' layer(primeng);
-@import '../node_modules/primeng/resources/themes/aura-light-blue/theme.css' layer(auraTheme);
+
 @layer bootstrap, primeng, auraTheme;
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'primeicons/primeicons.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
