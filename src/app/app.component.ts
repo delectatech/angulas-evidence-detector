@@ -15,7 +15,7 @@ import { slideInAnimation } from './animations';
   animations: [slideInAnimation],
 })
 export class AppComponent {
-  title = 'Football Detector';
+  title = 'Angula Detector';
   showHeader = false;
 
   constructor(

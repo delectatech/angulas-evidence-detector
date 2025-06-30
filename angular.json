@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "football-detector-front": {
+    "angulas-evidence-detector-front": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/football-detector-front",
+            "outputPath": "dist/angulas-evidence-detector-front",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -87,10 +87,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "prod": {
-              "buildTarget": "football-detector-front:build:prod"
+              "buildTarget": "angulas-evidence-detector-front:build:prod"
             },
             "development": {
-              "buildTarget": "football-detector-front:build:development"
+              "buildTarget": "angulas-evidence-detector-front:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'football-detector-front' title`, () => {
+  it(`should have the 'angulas-evidence-detector-front' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('football-detector-front');
+    expect(app.title).toEqual('angulas-evidence-detector-front');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, football-detector-front');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, angulas-evidence-detector-front');
   });
 });
