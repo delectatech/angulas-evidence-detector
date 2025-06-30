@@ -1,0 +1,7 @@
+# Node.js
+node_modules/
+dist/
+tmp/
+temp/
+pnpm-lock.yaml
+.pnpm-debug.log
