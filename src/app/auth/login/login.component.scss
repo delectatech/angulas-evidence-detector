@@ -1,13 +1,13 @@
 /* login.component.scss */
 
 /* Elimina márgenes y paddings que puedan causar scroll */
-:host {
+body {
   display: block;
-  height: 100vh;
+  // height: 100vh;
   // display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("/public/images/login-background.jpg");
+  background-image: url("/assets/images/login-background.jpg");
   background-size: cover;
 }
 
