@@ -14,6 +14,8 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { SliderModule } from 'primeng/slider';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { TooltipModule } from 'primeng/tooltip';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -40,6 +42,8 @@ import { MatButtonModule } from '@angular/material/button';
     SliderModule,
     DropdownModule,
     MultiSelectModule,
+    SelectButtonModule,
+    TooltipModule,
     IconFieldModule,
     InputIconModule,
     SliderModule,
@@ -61,6 +65,12 @@ export class ListComponent {
   loading: boolean = false;
   totalRecords: number = 0;
   provincesOptions = [];
+  evidenceOptions = [
+    { name: 'Todas', value: 'all' },
+    { name: 'Con menú', value: 'menu' },
+    { name: 'Con comentarios', value: 'comments' }
+  ];
+  selectedEvidences: string[] = ['all'];
   imagesWithFootballChecked: boolean = false;
   commentsWithFootballChecked: boolean = false;
   rangeValues: number[] = [0, 100];
@@ -88,15 +98,15 @@ export class ListComponent {
       { field: 'provinceName', header: 'Provincia', orderable: false },
       { field: 'regionName', header: 'Región', orderable: false },
       { field: 'status', header: 'Estado del local', orderable: false },
-      { field: 'potential_ratio', header: 'Potencial', orderable: true },
+      { field: 'potential_ratio', header: 'Score', orderable: true },
       {
         field: 'total_images',
-        header: 'Imágenes con fútbol',
+        header: 'Menús con evidencias',
         orderable: false,
       },
       {
         field: 'total_comments',
-        header: 'Comentarios sobre fútbol',
+        header: 'Comentarios con evidencias',
         orderable: false,
       },
     ];
@@ -182,16 +192,20 @@ export class ListComponent {
       filters.provinceUid = { value: this.selectedProvince };
     }
 
-    if (this.imagesWithFootballChecked == true) {
-      filters.hasFootballImages = {
-        value: this.imagesWithFootballChecked,
-      };
+    // Handle SelectButton evidences filter
+    if (this.selectedEvidences.includes('menu') && !this.selectedEvidences.includes('all')) {
+      filters.hasFootballImages = { value: true };
     }
 
-    if (this.commentsWithFootballChecked == true) {
-      filters.hasFootballComments = {
-        value: this.commentsWithFootballChecked,
-      };
+    if (this.selectedEvidences.includes('comments') && !this.selectedEvidences.includes('all')) {
+      filters.hasFootballComments = { value: true };
+    }
+
+    // If 'all' is selected, don't apply specific filters
+    if (this.selectedEvidences.includes('all')) {
+      // Remove specific filters when 'all' is selected
+      delete filters.hasFootballImages;
+      delete filters.hasFootballComments;
     }
 
     // Si this.searchValue está presente, añade 'searchText'
@@ -223,6 +237,7 @@ export class ListComponent {
     this.searchValue = '';
     this.rangeValues = [0, 100];
     this.selectedProvince = '';
+    this.selectedEvidences = ['all'];
     this.imagesWithFootballChecked = false;
     this.commentsWithFootballChecked = false;
     this.currentFilters = {};
@@ -251,6 +266,7 @@ export class ListComponent {
     sessionStorage.setItem('searchValue', this.searchValue);
     sessionStorage.setItem('filters', JSON.stringify(this.currentFilters));
     sessionStorage.setItem('selectedProvince', this.selectedProvince);
+    sessionStorage.setItem('selectedEvidences', JSON.stringify(this.selectedEvidences));
     sessionStorage.setItem('imagesWithFootballChecked', this.imagesWithFootballChecked.toString());
     sessionStorage.setItem('commentsWithFootballChecked', this.commentsWithFootballChecked.toString());
     sessionStorage.setItem('rangeValues', JSON.stringify(this.rangeValues));
@@ -263,6 +279,7 @@ export class ListComponent {
     this.searchValue = sessionStorage.getItem('searchValue') || '';
     this.currentFilters = JSON.parse(sessionStorage.getItem('filters') || '{}');
     this.selectedProvince = sessionStorage.getItem('selectedProvince') || '';
+    this.selectedEvidences = JSON.parse(sessionStorage.getItem('selectedEvidences') || '["all"]');
     this.imagesWithFootballChecked = sessionStorage.getItem('imagesWithFootballChecked') == 'true';
     this.commentsWithFootballChecked = sessionStorage.getItem('commentsWithFootballChecked') == 'true';
     this.rangeValues = JSON.parse(sessionStorage.getItem('rangeValues') || '[0, 100]');
