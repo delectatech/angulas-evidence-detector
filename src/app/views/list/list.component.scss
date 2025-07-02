@@ -9,6 +9,42 @@
   }
 }
 
+.info-panel{
+  // padding: 1rem;
+  border-radius: 15px;
+  max-width: 85%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  ::ng-deep{
+    .p-message-info{
+      background-color: #ECECEC !important;
+      outline-color: white;
+    }
+  }
+    
+  .info-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    
+    .info-text {
+      color: #110B35;
+      font-weight: 400;
+      font-size: 14px;
+      flex: 1;
+    }
+    
+    .learn-more-link {
+      color: #110B35;
+      font-weight: 400;
+      font-size: 14px;
+      white-space: nowrap;
+      margin-left: 1rem;
+    }
+  }
+}
 .component-container {
   background: white;
   padding: 1rem;
@@ -71,3 +107,6 @@ i {
 .filteredTotal {
   max-width: 200px;
 }
+
+
+

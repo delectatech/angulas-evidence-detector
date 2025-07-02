@@ -3,11 +3,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AuthService } from '../services/auth.service';
 import { TokenService } from '../services/token.service';
@@ -21,11 +21,11 @@ import { AfterViewInit } from '@angular/core';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatButtonModule,
-    MatInputModule,
-    MatCardModule,
-    MatProgressSpinnerModule,
-    MatFormFieldModule
+    InputTextModule,
+    PasswordModule,
+    ButtonModule,
+    CardModule,
+    ProgressSpinnerModule
   ],
   animations: [
     trigger('moveUp', [

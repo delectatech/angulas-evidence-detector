@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild, TemplateRef } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Table, TableLazyLoadEvent, TableModule } from 'primeng/table';
@@ -20,6 +20,9 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { NumberFormatPipe } from '../../number-format.pipe';
 import { TrackingService } from '@app/core/services/tracking.service';
 import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-account-list',
@@ -43,6 +46,9 @@ import { MessagesModule } from 'primeng/messages';
     CheckboxModule,
     NumberFormatPipe,
     MessagesModule,
+    MessageModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
@@ -67,11 +73,13 @@ export class ListComponent {
   noEstablishmentsFoundMessage = [[{ severity: 'info', detail: 'No hay establecimientos a mostrar actualmente.' }]];
   private currentFilters: any = {};
   @ViewChild('establishmentsTable') establishmentTable!: Table;
+  @ViewChild('methodologyTemplate', { static: true }) methodologyTemplate!: TemplateRef<any>;
 
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private trackingService: TrackingService
+    private trackingService: TrackingService,
+    private dialog: MatDialog
   ) {}
   ngOnInit() {
     this.cols = [
@@ -265,5 +273,12 @@ export class ListComponent {
 
   sendTracking(name: string, parameters: Record<string, any>) {
     this.trackingService.trackAction(name, parameters).subscribe();
+  }
+
+  showMethodology() {
+    this.dialog.open(this.methodologyTemplate, {
+      width: '600px',
+      maxWidth: '90vw'
+    });
   }
 }

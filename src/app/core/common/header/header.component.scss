@@ -18,11 +18,17 @@
   }
 }
 
+.header-title-text{
+  font-weight: 600;
+  font-size: 28px;
+  color: #0E154B !important;
+}
+
 .header-actions {
   cursor: pointer;
   display: flex;
   align-items: center;
-  color: #343a40;
+  color: #626ED4;
   /* Color por defecto */
   transition: color 0.3s ease-in-out;
   /* Transición suave de color */

@@ -10,51 +10,56 @@
       </div>
       <form [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="inputs-container">
-          <mat-form-field appearance="fill" class="w-100 mb-3">
-            <mat-label>Correo electrónico</mat-label>
+          <div class="p-field mb-3">
+            <label for="email" class="p-label">Correo electrónico</label>
             <input
-              matInput
+              pInputText
               id="email"
               type="email"
               formControlName="email"
               autofocus
-              [class.invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+              class="w-100"
+              placeholder="Ingrese su correo electrónico"
+              [class.p-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
             />
-            <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            <!-- <small *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="p-error">
               The email is invalid          
-            </mat-error>
-          </mat-form-field>
+            </small> -->
+          </div>
   
-          <mat-form-field appearance="fill" class="w-100 mb-3">
-            <mat-label>Contraseña</mat-label>
-            <input matInput 
+          <div class="p-field mb-3">
+            <label for="password" class="p-label">Contraseña</label>
+            <p-password
               id="password" 
-              type="password"
               formControlName="password" 
-              placeholder="Contraseña"/>
-            <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+              placeholder="Contraseña"
+              [feedback]="false"
+              [toggleMask]="true"
+              styleClass="w-100"
+              inputStyleClass="w-100"
+              [class.p-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            </p-password>
+            <!-- <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="p-error">
               The password is invalid
-            </mat-error>
-          </mat-form-field>
+            </small> -->
+          </div>
         </div>
         <div *ngIf="loginError" class="error-message mb-3 text-danger text-center">
           Password or email are invalid.
         </div>
         <div class="text-center">
-          <button
-            mat-raised-button
+          <p-button
             type="submit"
             [disabled]="!loginForm.valid || loading"
-            class="login-button w-100 d-flex justify-content-center align-items-center"
-          >
-            Entrar
-            <mat-progress-spinner
+            label="Entrar"
+            styleClass="login-button w-100 d-flex justify-content-center align-items-center">
+            <p-progressSpinner
               *ngIf="loading"
-              mode="indeterminate"
-              diameter="20"
-              class="spinner ml-2"
-            ></mat-progress-spinner>
-          </button>
+              strokeWidth="4"
+              [style]="{ width: '20px', height: '20px' }"
+              styleClass="spinner ml-2">
+            </p-progressSpinner>
+          </p-button>
         </div>
       </form>
     </div>

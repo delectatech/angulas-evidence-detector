@@ -1,3 +1,17 @@
+<p-message
+  severity="info"
+  class="info-panel"
+  [closable]="false"
+>
+  <i class="pi pi-info-circle" style="margin-right: 0.5em;"></i>
+  <span class="info-content">
+    <span class="info-text">
+      Conoce más a fondo la metodología que se ha empleado para la extracción y análisis de conceptos para Angulas Aguinaga
+    </span>
+    <a href="#" class="learn-more-link" style="text-decoration: underline;" (click)="showMethodology(); $event.preventDefault()">Saber más</a>
+  </span>
+</p-message>
+
 <section class="component-container">
   <div class="card-header row" [ngClass]="{ loading: loading }">
     <div class="col d-flex align-items-center searcher-container">
@@ -129,3 +143,34 @@
     </ng-template>
   </p-table>
 </section>
+
+<ng-template #methodologyTemplate>
+  <h2 mat-dialog-title>
+    <i class="pi pi-info-circle" style="margin-right: 0.5rem;"></i>
+    Metodología de análisis de evidencias
+  </h2>
+  
+  <mat-dialog-content>
+    <p>
+      Una evidencia es considerada válida si presenta al menos una mención de <strong>"Gula(s)"</strong> o <strong>"Gula del Norte"</strong> en alguna de estas fuentes en los establecimientos:
+    </p>
+    
+    <ul>
+      <li>Cartas digitales publicadas online</li>
+      <li>Fotografías de menús (físicos o digitales)</li>
+      <li>Comentarios o reseñas en directorios online</li>
+    </ul>
+    
+    <p>
+      <em>La selección prioriza las evidencias de cartas (por su mayor fiabilidad) frente a menciones en comentarios.</em>
+    </p>
+    
+    <p>
+      La fecha de detección permite priorizar las evidencias más recientes, otorgándoles mayor relevancia en el sistema de valoración.
+    </p>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="center">
+    <button mat-raised-button color="primary" mat-dialog-close>Entendido</button>
+  </mat-dialog-actions>
+</ng-template>
