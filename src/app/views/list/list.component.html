@@ -14,11 +14,13 @@
 
 <section class="component-container">
   <!-- Search moved to the top -->
-  <div class="search-container mb-3">
-    <span class="p-input-icon-left">
-      <i class="pi pi-search"></i>
-      <input #searchInput pInputText type="text" [(ngModel)]="searchValue" (input)="establishmentsTable.filterGlobal(searchInput.value, 'contains')" placeholder="Busca aquí nombres de establecimientos, direcciones o provincias" style="width: 100%;" />
-    </span>
+  <div class="search-container mb-3 d-flex justify-content-center">
+    <div class="search-input-wrapper">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input #searchInput pInputText type="text" [(ngModel)]="searchValue" (input)="establishmentsTable.filterGlobal(searchInput.value, 'contains')" placeholder="Busca aquí nombres de establecimientos, direcciones o provincias" class="search-input" />
+      </span>
+    </div>
   </div>
 
   <div class="filters-container row" [ngClass]="{ loading: loading }">
@@ -26,9 +28,8 @@
       <label class="me-2">Ver evidencias:</label>
       <p-selectButton 
         [options]="evidenceOptions" 
-        [(ngModel)]="selectedEvidences" 
+        [(ngModel)]="selectedEvidence" 
         (onChange)="applyFilter()" 
-        [multiple]="true"
         optionLabel="name" 
         optionValue="value">
       </p-selectButton>
@@ -65,9 +66,6 @@
         pTooltip="Borrar filtros"
         tooltipPosition="top">
       </p-button>
-    </div>
-    <div class="col filteredTotal d-flex align-items-center">
-      <span>Total filtrados: {{ totalRecords | numberFormat }}</span>
     </div>
   </div>
   <p-table

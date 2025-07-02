@@ -66,10 +66,11 @@ export class ListComponent {
   totalRecords: number = 0;
   provincesOptions = [];
   evidenceOptions = [
-    { name: 'Todas', value: 'all' },
-    { name: 'Con menú', value: 'menu' },
-    { name: 'Con comentarios', value: 'comments' }
+    { name: 'Todas (21.456)', value: 'all' },
+    { name: 'Con menú (12.124)', value: 'menu' },
+    { name: 'Con comentarios (9.456)', value: 'comments' }
   ];
+  selectedEvidence: string = 'all';
   selectedEvidences: string[] = ['all'];
   imagesWithFootballChecked: boolean = false;
   commentsWithFootballChecked: boolean = false;
@@ -192,21 +193,13 @@ export class ListComponent {
       filters.provinceUid = { value: this.selectedProvince };
     }
 
-    // Handle SelectButton evidences filter
-    if (this.selectedEvidences.includes('menu') && !this.selectedEvidences.includes('all')) {
+    // Handle SelectButton evidences filter (OR logic)
+    if (this.selectedEvidence === 'menu') {
       filters.hasFootballImages = { value: true };
-    }
-
-    if (this.selectedEvidences.includes('comments') && !this.selectedEvidences.includes('all')) {
+    } else if (this.selectedEvidence === 'comments') {
       filters.hasFootballComments = { value: true };
     }
-
     // If 'all' is selected, don't apply specific filters
-    if (this.selectedEvidences.includes('all')) {
-      // Remove specific filters when 'all' is selected
-      delete filters.hasFootballImages;
-      delete filters.hasFootballComments;
-    }
 
     // Si this.searchValue está presente, añade 'searchText'
     if (this.searchValue && this.searchValue != '') {
@@ -237,6 +230,7 @@ export class ListComponent {
     this.searchValue = '';
     this.rangeValues = [0, 100];
     this.selectedProvince = '';
+    this.selectedEvidence = 'all';
     this.selectedEvidences = ['all'];
     this.imagesWithFootballChecked = false;
     this.commentsWithFootballChecked = false;
@@ -266,6 +260,7 @@ export class ListComponent {
     sessionStorage.setItem('searchValue', this.searchValue);
     sessionStorage.setItem('filters', JSON.stringify(this.currentFilters));
     sessionStorage.setItem('selectedProvince', this.selectedProvince);
+    sessionStorage.setItem('selectedEvidence', this.selectedEvidence);
     sessionStorage.setItem('selectedEvidences', JSON.stringify(this.selectedEvidences));
     sessionStorage.setItem('imagesWithFootballChecked', this.imagesWithFootballChecked.toString());
     sessionStorage.setItem('commentsWithFootballChecked', this.commentsWithFootballChecked.toString());
@@ -279,6 +274,7 @@ export class ListComponent {
     this.searchValue = sessionStorage.getItem('searchValue') || '';
     this.currentFilters = JSON.parse(sessionStorage.getItem('filters') || '{}');
     this.selectedProvince = sessionStorage.getItem('selectedProvince') || '';
+    this.selectedEvidence = sessionStorage.getItem('selectedEvidence') || 'all';
     this.selectedEvidences = JSON.parse(sessionStorage.getItem('selectedEvidences') || '["all"]');
     this.imagesWithFootballChecked = sessionStorage.getItem('imagesWithFootballChecked') == 'true';
     this.commentsWithFootballChecked = sessionStorage.getItem('commentsWithFootballChecked') == 'true';
