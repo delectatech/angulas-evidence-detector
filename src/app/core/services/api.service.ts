@@ -5787,6 +5787,59 @@ export class ApiService {
   }
 
   loadEstablishmentData(uid: string): Observable<any> {
+    return of({
+    "_id": "66cc77685ba99d01c76eedcb",
+    "restaurantUidentifier": "b1d882f046b98865133442c82e6ff3795a06b003",
+    "name": "Bar San Remo",
+    "streetAddress": "Calle guridi",
+    "numberAddress": "10",
+    "provinceName": "Alicante",
+    "regionName": "Comunitat Valenciana",
+    "status": "OPERATIONAL",
+    "potential_ratio": 48.94024,
+    "evidences": {
+        "images": {
+            "total_images": 1,
+            "soccer_images_count": 1,
+            "details": [
+                {
+                    "image_url": "https://imagevault.delectame.com/md5/5290c0d5b4494840de82582298e89bdc",
+                    "date": "2022-12-03",
+                    "label": "tv with soccer"
+                }
+            ]
+        },
+        "comments": {
+            "total_comments": 1,
+            "soccer_comments_count": 1,
+            "details": [
+                {
+                    "comment_text": "Amazing Belgian beer bar in the sun, what more could you want? The beers are cheaper than in Belgium too! Lovely friendly owners. Big TV's show football. San Remo was recommended to me by Ernst and I wouldn't hesitate to recommend to others. If you're in San Luis head over!",
+                    "date": "2023-09-10",
+                    "label": "soccer_comment"
+                }
+            ]
+        }
+    },
+    "cityUid": "b810d613404366cbbc56c86ddc1772cb6249a3ed",
+    "provinceUid": "c1c486e58d8b238ab1075e0a8bd1fd61f46c1254",
+    "regionUid": "71dee81e4b525f876739781dcd1e612b46f0d9d3",
+    "postalCodeUid": "ddab039c20e5e15024d0229700b4a3f17d815d0c",
+    "links": {
+        "tripAdvisorUrl": "https://www.tripadvisor.com/Restaurant_Review-g187527-d11918615-Reviews-Bar_San_Remo-Torrevieja_Costa_Blanca_Province_of_Alicante_Valencian_Community.html",
+        "googleUrl": "https://maps.google.es/?cid=1659818357479622670",
+        "elTenedorUrl": null,
+        "facebookUrl": "https://www.facebook.com/elchapparal/",
+        "twitterUrl": null,
+        "instagramUrl": null,
+        "michelinUrl": null,
+        "yelpUrl": null,
+        "glovoUrl": null,
+        "justEatUrl": null,
+        "uberEatsUrl": null,
+        "guruUrl": null
+    }
+})
     return this.http.get<any>(`${this.API_URL}/restaurant/${uid}`);
   }
 

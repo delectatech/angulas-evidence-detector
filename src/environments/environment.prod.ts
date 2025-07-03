@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://football-detector-backend.delectame.com',
+  apiUrl: 'https://angulas-aguinaga-back.delectame.com',
   enableTracking: true,
 };

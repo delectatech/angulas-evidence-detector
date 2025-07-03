@@ -110,13 +110,18 @@ i {
   .search-input-wrapper {
     max-width: 500px;
     width: 100%;
+    position: relative;
   }
   
   .p-input-icon-left {
     width: 100%;
+    position: relative;
     
     i {
+      position: absolute;
       left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
       color: #6c757d;
       z-index: 10;
     }
@@ -150,6 +155,37 @@ i {
   background-color: #f8f9fa;
   border-radius: 8px;
   margin-bottom: 1rem;
+  gap: 1.5rem; // Espacio entre columnas
+  
+  .col {
+    margin-bottom: 0.5rem; // Espacio inferior para pantallas pequeñas
+    
+    &:not(:last-child) {
+      margin-right: 1rem; // Espacio derecho entre columnas
+    }
+  }
+  
+  // Ajustes específicos para el contenedor del slider de potencial
+  .col.align-items-center.row {
+    gap: 0.5rem; // Reduce el espacio entre "Potencial" y el slider
+    
+    .col.text-center {
+      padding-right: 0; // Elimina padding derecho
+      margin-right: 0.25rem; // Pequeño margen para separar del slider
+      flex: 0 0 auto; // No crece ni se reduce
+    }
+    
+    .col-md-6 {
+      margin-left: 0.5rem !important; // Reduce el margen izquierdo
+      min-width: 15em;
+    }
+  }
+  
+  // Más espacio para el botón de borrar filtros
+  .col.d-flex.align-items-center[style*="max-width: 80px"] {
+    max-width: 100px !important;
+    padding-left: 1rem;
+  }
 }
 
 // Custom potential slider with different color

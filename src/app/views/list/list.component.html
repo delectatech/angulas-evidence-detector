@@ -14,7 +14,7 @@
 
 <section class="component-container">
   <!-- Search moved to the top -->
-  <div class="search-container mb-3 d-flex justify-content-center">
+  <div class="search-container mb-3 d-flex">
     <div class="search-input-wrapper">
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
@@ -24,7 +24,7 @@
   </div>
 
   <div class="filters-container row" [ngClass]="{ loading: loading }">
-    <div class="col d-flex align-items-center">
+    <div class="col-5 d-flex align-items-center">
       <label class="me-2">Ver evidencias:</label>
       <p-selectButton 
         [options]="evidenceOptions" 
@@ -34,7 +34,7 @@
         optionValue="value">
       </p-selectButton>
     </div>
-    <div class="col d-flex align-items-center">
+    <div class="col-3 d-flex align-items-center">
       <label class="me-2">Provincias:</label>
       <p-dropdown
         [options]="provincesOptions"
@@ -47,17 +47,17 @@
         [(ngModel)]="selectedProvince"
       />
     </div>
-    <div class="col align-items-center row">
-      <div class="col text-center">
-        <span>Potencial</span>
+    <div class="col-3 align-items-center row">
+      <div class="col-auto text-center">
+        <span>Score</span>
       </div>
-      <div class="col-md-6" style="display: flex; justify-content: space-between; align-items: center; min-width: 15em; margin-left: 1.25em">
+      <div class="col-md-6" style="display: flex; justify-content: space-between; align-items: center; min-width: 15em; margin-left: 0.5rem">
         <span class="mx-1">{{ rangeValues[0] }}%</span>
         <p-slider class="d-block slider potential-slider" [(ngModel)]="rangeValues" (onSlideEnd)="applyFilter()" [range]="true"></p-slider>
         <span class="mx-1">{{ rangeValues[1] }}%</span>
       </div>
     </div>
-    <div class="col d-flex align-items-center" style="max-width: 80px">
+    <div class="col d-flex align-items-center justify-content-end" style="max-width: 120px">
       <p-button 
         class="p-button-secondary" 
         icon="pi pi-trash" 
