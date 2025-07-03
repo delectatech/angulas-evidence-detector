@@ -16,10 +16,6 @@ export class AuthService {
   ) {}
 
   login(email: string, password: string): Observable<any> {
-    return of({
-      access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0YzMyOTQ1OS01N2E4LTRlZjMtODdmMS02YjQ1NzI1MTUxYjUiLCJpYXQiOjE3NTE0MTI1MzUsImV4cCI6MTc1MTQxMzQzNX0.MLOQTJVf0fT4_gNLhFAVK4l_X88P68xW2KEKdNybuwI",
-      refresh_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0YzMyOTQ1OS01N2E4LTRlZjMtODdmMS02YjQ1NzI1MTUxYjUiLCJpYXQiOjE3NTE0MTI1MzUsImV4cCI6MTc1NDAwNDUzNX0.BKROwt_Q0f_cMx_2T_vYOwZaw-ckSZRm2qSNEB7sWGU"
-    })
     return this.http.post<any>(this.API_URL + '/auth/signin', {
       email,
       password,

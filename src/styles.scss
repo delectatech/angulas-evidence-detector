@@ -29,6 +29,50 @@ $box-shadow-sm: 0 0.125rem 0.25rem rgba($black, 0.075) !default;
 $box-shadow-lg: 0 1rem 3rem rgba($black, 0.175) !default;
 $box-shadow-inset: inset 0 1px 2px rgba($black, 0.075) !default;
 
+// Override PrimeNG Aura theme variables
+:root {
+  // Override the emerald color palette that Aura uses for primary
+  --p-emerald-50: #f0f1fe;
+  --p-emerald-100: #e3e5fd;
+  --p-emerald-200: #cbcffa;
+  --p-emerald-300: #aab1f6;
+  --p-emerald-400: #878cf0;
+  --p-emerald-500: #626ed4;
+  --p-emerald-600: #626ed4;
+  --p-emerald-700: #4f5ab8;
+  --p-emerald-800: #3f4895;
+  --p-emerald-900: #363c78;
+  --p-emerald-950: #22264a;
+  
+  // Override primary color system
+  --p-primary-50: #f0f1fe;
+  --p-primary-100: #e3e5fd;
+  --p-primary-200: #cbcffa;
+  --p-primary-300: #aab1f6;
+  --p-primary-400: #878cf0;
+  --p-primary-500: #626ed4;
+  --p-primary-600: #626ed4;
+  --p-primary-700: #4f5ab8;
+  --p-primary-800: #3f4895;
+  --p-primary-900: #363c78;
+  --p-primary-950: #22264a;
+  
+  // Override specific semantic variables
+  --p-primary-color: #626ed4;
+  --p-primary-contrast-color: #ffffff;
+  
+  // Button specific overrides
+  --p-button-primary-background: #626ed4;
+  --p-button-primary-border-color: #626ed4;
+  --p-button-primary-color: #ffffff;
+  --p-button-primary-hover-background: #4f5ab8;
+  --p-button-primary-hover-border-color: #4f5ab8;
+  --p-button-primary-hover-color: #ffffff;
+  --p-button-primary-active-background: #3f4895;
+  --p-button-primary-active-border-color: #3f4895;
+  --p-button-primary-active-color: #ffffff;
+}
+
 @layer global-tweaks {
   * {
     font-family: $font-family;

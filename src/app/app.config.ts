@@ -14,13 +14,15 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     importProvidersFrom(HttpClientModule),
-     providePrimeNG({
-    theme: {
-      preset: Aura
-    }
-  }),
+    providePrimeNG({
+      theme: {
+        preset: Aura
+      }
+    }),
     provideAnimations(),
-    MessageService,    { provide: LOCALE_ID, useValue: 'es' },
+    MessageService,
+    { provide: LOCALE_ID, useValue: 'es' },
     importProvidersFrom(BrowserAnimationsModule),
+    provideHttpClient(withInterceptors([AuthInterceptor])),
   ],
 };

@@ -7,10 +7,10 @@ import { AuthService } from './auth.service';
 import posthog from 'posthog-js';
 
 export const AuthInterceptor: (req: HttpRequest<any>, next: HttpHandlerFn) => Observable<HttpEvent<any>> = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
+  
   const authService = inject(AuthService);
   const tokenService = inject(TokenService);
   const accessToken = tokenService.getAccessToken();
-
   // Bypass interceptor if the request is flagged to skip auth
   if (req.headers.has('skipInterceptor')) {
     return next(req);
