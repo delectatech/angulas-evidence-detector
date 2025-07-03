@@ -62,13 +62,13 @@ export class DetailComponent {
     [
       {
         severity: 'warn',
-        detail: 'Este establecimiento no tiene imágenes',
+        detail: 'No se han encontrado evidencias en los menús analizados de este establecimiento.',
       },
     ],
     [
       {
         severity: 'warn',
-        detail: 'Este establecimiento no tiene comentarios',
+        detail: 'No se han encontrado evidencias en los comentarios analizados de este establecimiento.',
       },
     ],
     [{ severity: 'info', detail: 'No hay imágenes con esos filtros' }],

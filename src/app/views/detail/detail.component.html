@@ -65,13 +65,13 @@
               <tr>
                 <th scope="row" style="width: 45%">Ratio de Potencial:</th>
                 <td style="width: 55%">
-                  @if (establishmentData?.potential_ratio === 0 || !establishmentData) {
+                  @if (establishmentData?.score === 0 || !establishmentData) {
                     <div style="position: relative; width: 100%">
-                      <p-progressBar [value]="establishmentData ? establishmentData.potential_ratio : 0"></p-progressBar>
-                      <div class="progress-text">{{ establishmentData?.potential_ratio || 0 }}%</div>
+                      <p-progressBar [value]="establishmentData ? establishmentData.score*100 : 0"></p-progressBar>
+                      <div class="progress-text">{{ establishmentData?.score*100 || 0 }}%</div>
                     </div>
                   } @else {
-                    <p-progressBar [value]="establishmentData.potential_ratio"></p-progressBar>
+                    <p-progressBar [value]="establishmentData.score*100"></p-progressBar>
                   }
                 </td>
               </tr>
@@ -80,7 +80,7 @@
         </p-tabPanel>
 
         <!-- Images Gallery -->
-        <p-tabPanel header="Galería de Imágenes" leftIcon="pi pi-image">
+        <p-tabPanel header="Menu" leftIcon="pi pi-image">
           @if (!noImagesFound) {
             <div class="custom-card-header row p-3">
               <div class="col-md-4 d-flex justify-content-center align-items-center">

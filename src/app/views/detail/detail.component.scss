@@ -277,3 +277,40 @@ i {
   font-weight: 600;
   font-size: 28px;
 }
+
+::ng-deep {
+  .p-tab-active{
+      color: #626ED4 !important;
+      border-color: #626ED4 !important;
+      color: var(--p-tabs-tab-active-color);
+  }
+
+  .p-tablist-active-bar{
+    background-color: #626ED4 !important;
+  }
+
+  .p-tab{
+    font-size: 14px;
+    font-weight: 400;
+  }
+  
+  .p-progressbar-value{
+    background-color: #626ED4 !important;
+  }
+
+  .p-message-icon{
+    margin-bottom: 6px;
+  }
+
+  .p-tag-danger{
+    background-color: #F7EDF1;
+    color: #650A00;
+    font-weight: 400;
+  }
+
+  .p-tag-success{
+    background-color: #C4EDDE;
+    color: #00373B;
+    font-weight: 400;
+  }
+}

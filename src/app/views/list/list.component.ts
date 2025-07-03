@@ -66,9 +66,9 @@ export class ListComponent {
   totalRecords: number = 0;
   provincesOptions = [];
   evidenceOptions = [
-    { name: 'Todas (21.456)', value: 'all' },
-    { name: 'Con menú (12.124)', value: 'menu' },
-    { name: 'Con comentarios (9.456)', value: 'comments' }
+    { name: 'Todas', value: 'all' },
+    { name: 'Con menú', value: 'menu' },
+    { name: 'Con comentarios', value: 'comments' }
   ];
   selectedEvidence: string = 'all';
   selectedEvidences: string[] = ['all'];
@@ -77,7 +77,7 @@ export class ListComponent {
   rangeValues: number[] = [0, 100];
   selectedProvince = '';
   filterParameters = '';
-  sortField = 'potential_ratio';
+  sortField = 'score';
   sortOrder = -1;
   first = 0;
   searchValue: string = '';
@@ -99,7 +99,7 @@ export class ListComponent {
       { field: 'provinceName', header: 'Provincia', orderable: false },
       { field: 'regionName', header: 'Región', orderable: false },
       { field: 'status', header: 'Estado del local', orderable: false },
-      { field: 'potential_ratio', header: 'Score', orderable: true },
+      { field: 'score', header: 'Score', orderable: true },
       {
         field: 'total_images',
         header: 'Menús con evidencias',
@@ -121,12 +121,13 @@ export class ListComponent {
     this.apiService.loadList(event).subscribe({
       next: (resp) => {
         this.totalRecords = resp.total;
+        this.evidenceOptions[0].value+= this.totalRecords;
         const transformedData = resp.data.map((item: any) => {
-          return {
+            return {
             ...item,
-            potential_ratio: item.potential_ratio ? parseFloat(item.potential_ratio).toFixed(2).replace('.', ',') + '%' : '0,00%',
-            potential_ratio_progressBar: item.potential_ratio ? parseFloat(item.potential_ratio).toFixed(0) : '0',
-          };
+            score: item.score ? (parseFloat(item.score) * 100).toFixed(2).replace('.', ',') + '%' : '0,00%',
+            score_progressBar: item.score ? (parseFloat(item.score) * 100).toFixed(0) : '0',
+            };
         });
         this.establishments$.next(transformedData);
         this.loading = false;
@@ -173,7 +174,7 @@ export class ListComponent {
     } else {
       delete combinedEvent.filters['searchText'];
     }
-    this.sortField = (event.sortField as string) || 'potential_ratio';
+    this.sortField = (event.sortField as string) || 'score';
     this.sortOrder = event.sortOrder || -1;
     this.first = event.first || 0;
     console.log('combinedEvent.filters =>', combinedEvent.filters);
@@ -185,8 +186,8 @@ export class ListComponent {
   applyFilter() {
     this.loading = true;
     const filters: any = {
-      potentialRatioLowerBound: { value: this.rangeValues[0] },
-      potentialRatioUpperBound: { value: this.rangeValues[1] },
+      scoreLowerBound: { value: this.rangeValues[0] },
+      scoreUpperBound: { value: this.rangeValues[1] },
     };
 
     if (this.selectedProvince) {
@@ -195,9 +196,9 @@ export class ListComponent {
 
     // Handle SelectButton evidences filter (OR logic)
     if (this.selectedEvidence === 'menu') {
-      filters.hasFootballImages = { value: true };
+      filters.hasElversMenus = { value: true };
     } else if (this.selectedEvidence === 'comments') {
-      filters.hasFootballComments = { value: true };
+      filters.hasElversComments = { value: true };
     }
     // If 'all' is selected, don't apply specific filters
 
@@ -235,7 +236,7 @@ export class ListComponent {
     this.imagesWithFootballChecked = false;
     this.commentsWithFootballChecked = false;
     this.currentFilters = {};
-    this.sortField = 'potential_ratio';
+    this.sortField = 'score';
     this.sortOrder = -1;
     this.applyFilter();
   }
@@ -279,7 +280,7 @@ export class ListComponent {
     this.imagesWithFootballChecked = sessionStorage.getItem('imagesWithFootballChecked') == 'true';
     this.commentsWithFootballChecked = sessionStorage.getItem('commentsWithFootballChecked') == 'true';
     this.rangeValues = JSON.parse(sessionStorage.getItem('rangeValues') || '[0, 100]');
-    this.sortField = sessionStorage.getItem('sortField') || 'potential_ratio';
+    this.sortField = sessionStorage.getItem('sortField') || 'score';
     this.sortOrder = parseInt(sessionStorage.getItem('sortOrder') || '-1');
     this.first = parseInt(sessionStorage.getItem('first') || '0');
   }

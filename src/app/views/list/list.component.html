@@ -118,18 +118,18 @@
               </span>
             </ng-container>
             <ng-container *ngSwitchCase="'total_images'">
-              {{ rowData?.evidences?.images?.soccer_images_count ?? '-' }}
+              {{ rowData?.menus?.elvers_count  ?? '-' }}
             </ng-container>
             <ng-container *ngSwitchCase="'total_comments'">
-              {{ rowData?.evidences?.comments?.soccer_comments_count ?? '-' }}
+              {{ rowData?.comments?.elvers_count ?? '-' }}
             </ng-container>
             <!-- Status Field -->
             <ng-container *ngSwitchCase="'status'">
               <p-tag [value]="rowData[col.field] === 'OPERATIONAL' ? 'Abierto' : 'Cerrado'" [severity]="rowData[col.field] === 'OPERATIONAL' ? 'info' : 'danger'" />
             </ng-container>
             <!-- Potential Ratio as Progress Bar -->
-            <ng-container *ngSwitchCase="'potential_ratio'">
-              <p-progressBar [value]="rowData['potential_ratio_progressBar']" [showValue]="false" />
+            <ng-container *ngSwitchCase="'score'">
+              <p-progressBar [value]="rowData['score_progressBar']" [showValue]="false" />
               <span class="justify-content-center">
                 <small>{{ rowData[col.field] }}</small>
               </span>
