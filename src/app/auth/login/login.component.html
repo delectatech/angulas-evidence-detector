@@ -7,8 +7,9 @@
         <h1 class="main-title">EVIDENCE DETECTOR</h1>
         <p class="subtitle">by Delectatech</p>
 
-        <div class="spinner" *ngIf="true">
+        <div class="spinner" *ngIf="!loginChecked || loading">
           <app-eel-spinner></app-eel-spinner>
+          <p class="subtitle">Loading...</p>
         </div>
       </div>
       <form *ngIf="loginChecked && !loading" [formGroup]="loginForm" (ngSubmit)="login()">

@@ -143,5 +143,19 @@ body {
 .spinner {
   // margin-left: 10px;
   max-width: 100px !important;
+  transform: scale(0.5); /* Scale down to 50% of original size */
+  transform-origin: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 120px; /* Control the height of the container */
+  margin: 0 auto; /* Center horizontally */
+  width: 100%; /* Take full width of parent */
+  margin-left: 165px
 }
 
+.spinner .subtitle{
+  font-size: 53px;
+  margin-left: -50px;
+}
