@@ -35,8 +35,8 @@
     /* Contenedor del spinner */
     .eel-spinner {
       position: relative;
-      width: 120px;
-      height: 60px;
+      width: 480px; /* 4x from 120px */
+      height: 240px; /* 4x from 60px */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -46,8 +46,8 @@
     /* Cuerpo principal de la anguila */
     .eel-body {
       position: relative;
-      width: 100px;
-      height: 6px;
+      width: 400px; /* 4x from 100px */
+      height: 24px; /* 4x from 6px */
       display: flex;
       align-items: center;
     }
@@ -55,28 +55,28 @@
     /* Segmentos del cuerpo para movimiento ondulante */
     .eel-segment {
       position: absolute;
-      width: 12px;
-      height: 6px;
+      width: 48px; /* 4x from 12px */
+      height: 24px; /* 4x from 6px */
       background: linear-gradient(90deg, #888 0%, #AAA 50%, #888 100%);
-      border-radius: 3px;
+      border-radius: 12px; /* 4x from 3px */
       animation: eelUndulate 2s ease-in-out infinite;
     }
     .eel-segment:nth-child(1) { left: 0px;   animation-delay: 0s; }
-    .eel-segment:nth-child(2) { left: 10px;  animation-delay: 0.1s; }
-    .eel-segment:nth-child(3) { left: 20px;  animation-delay: 0.2s; }
-    .eel-segment:nth-child(4) { left: 30px;  animation-delay: 0.3s; }
-    .eel-segment:nth-child(5) { left: 40px;  animation-delay: 0.4s; }
-    .eel-segment:nth-child(6) { left: 50px;  animation-delay: 0.5s; }
-    .eel-segment:nth-child(7) { left: 60px;  animation-delay: 0.6s; }
-    .eel-segment:nth-child(8) { left: 70px;  animation-delay: 0.7s; }
+    .eel-segment:nth-child(2) { left: 40px;  animation-delay: 0.1s; } /* 4x from 10px */
+    .eel-segment:nth-child(3) { left: 80px;  animation-delay: 0.2s; } /* 4x from 20px */
+    .eel-segment:nth-child(4) { left: 120px; animation-delay: 0.3s; } /* 4x from 30px */
+    .eel-segment:nth-child(5) { left: 160px; animation-delay: 0.4s; } /* 4x from 40px */
+    .eel-segment:nth-child(6) { left: 200px; animation-delay: 0.5s; } /* 4x from 50px */
+    .eel-segment:nth-child(7) { left: 240px; animation-delay: 0.6s; } /* 4x from 60px */
+    .eel-segment:nth-child(8) { left: 280px; animation-delay: 0.7s; } /* 4x from 70px */
 
     /* Cabeza de la anguila */
     .eel-head {
       position: absolute;
-      left: -8px;
-      top: -2px;
-      width: 16px;
-      height: 10px;
+      left: -32px; /* 4x from -8px */
+      top: -8px; /* 4x from -2px */
+      width: 64px; /* 4x from 16px */
+      height: 40px; /* 4x from 10px */
       background: linear-gradient(135deg, #999 0%, #BBB 100%);
       border-radius: 50% 20% 20% 50%;
       animation: eelHeadMove 2s ease-in-out infinite;
@@ -85,42 +85,42 @@
     .eel-head::before {
       content: '';
       position: absolute;
-      width: 1.5px;
-      height: 1.5px;
+      width: 6px; /* 4x from 1.5px */
+      height: 6px; /* 4x from 1.5px */
       background: #333;
       border-radius: 50%;
-      top: 3px;
-      left: 4px;
+      top: 12px; /* 4x from 3px */
+      left: 16px; /* 4x from 4px */
       opacity: 0.8;
     }
 
     /* Cola de la anguila - CORREGIDA */
     .eel-tail {
       position: absolute;
-      left: 79px; /* Movido más hacia la izquierda para superponerse ligeramente */
-      top: 1px;
+      left: 320px; /* 4x from 79px and slightly adjusted for better sync */
+      top: 1.5px; /* 4x from 1px */
       width: 0;
       height: 0;
-      border-left: 8px solid #888;
-      border-top: 3px solid transparent;
-      border-bottom: 3px solid transparent;
+      border-left: 32px solid #888; /* 4x from 8px */
+      border-top: 12px solid transparent; /* 4x from 3px */
+      border-bottom: 12px solid transparent; /* 4x from 3px */
       animation: eelUndulate 2s ease-in-out infinite;
-      animation-delay: 0.8s; /* Sincronizada con el último segmento + 0.1s */
+      animation-delay: 0.75s; /* Slightly adjusted to better sync with last segment */
       z-index: 5;
     }
 
     /* Animaciones */
     @keyframes eelUndulate {
       0%,100% { transform: translateY(0) rotate(0deg); }
-      25%    { transform: translateY(-3px) rotate(5deg); }
+      25%    { transform: translateY(-12px) rotate(5deg); } /* 4x from -3px */
       50%    { transform: translateY(0) rotate(0deg); }
-      75%    { transform: translateY(3px) rotate(-5deg); }
+      75%    { transform: translateY(12px) rotate(-5deg); } /* 4x from 3px */
     }
     @keyframes eelHeadMove {
       0%,100% { transform: translateY(0) rotate(0deg); }
-      25%    { transform: translateY(-2px) rotate(3deg); }
+      25%    { transform: translateY(-8px) rotate(3deg); } /* 4x from -2px */
       50%    { transform: translateY(0) rotate(0deg); }
-      75%    { transform: translateY(2px) rotate(-3deg); }
+      75%    { transform: translateY(8px) rotate(-3deg); } /* 4x from 2px */
     }
 
     /* Ocultar ripples y texto de carga */
