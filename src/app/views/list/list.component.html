@@ -68,7 +68,15 @@
       </p-button>
     </div>
   </div>
-  <p-table
+  
+  <!-- Custom spinner overlay -->
+  <div class="table-container" [ngClass]="{ 'loading': loading }">
+    <div *ngIf="loading" class="custom-loading-overlay">
+      <app-eel-spinner></app-eel-spinner>
+      <p class="loading-text">Cargando resultados de evidencias de gulas en menús...</p>
+    </div>
+    
+    <p-table
     #establishmentsTable
     (onLazyLoad)="onLazyLoad($event)"
     [lazy]="true"
@@ -83,11 +91,10 @@
     [rowsPerPageOptions]="[10, 15, 20, 50]"
     [sortField]="sortField"
     [sortOrder]="sortOrder"
-    [loading]="loading"
+    [loading]="false"
     locale="es-ES"
     styleClass="p-datatable-striped"
     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} locales"
-    loadingIcon="fas fa-futbol animation-bounce-spin"
   >
     <ng-template pTemplate="header">
       <tr>
@@ -152,6 +159,7 @@
       </tr>
     </ng-template>
   </p-table>
+  </div> <!-- Close table-container -->
 </section>
 
 <ng-template #methodologyTemplate>

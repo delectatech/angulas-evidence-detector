@@ -25,6 +25,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { EelSpinnerComponent } from '../../core/common/eel-spinner/eel-spinner';
 
 @Component({
   selector: 'app-account-list',
@@ -52,7 +53,8 @@ import { MatButtonModule } from '@angular/material/button';
     MessagesModule,
     MessageModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    EelSpinnerComponent
   ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
