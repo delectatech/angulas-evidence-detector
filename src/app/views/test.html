@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eel Spinner - Loading Component</title>
+  <style>
+    /* Reset y configuración base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+    }
+
+    /* Fondo transparente para el componente */
+    .eel-component {
+      background: transparent;
+      /* borde, padding y margin eliminados */
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Contenedor del spinner */
+    .eel-spinner {
+      position: relative;
+      width: 120px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+    }
+
+    /* Cuerpo principal de la anguila */
+    .eel-body {
+      position: relative;
+      width: 100px;
+      height: 6px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Segmentos del cuerpo para movimiento ondulante */
+    .eel-segment {
+      position: absolute;
+      width: 12px;
+      height: 6px;
+      background: linear-gradient(90deg, #888 0%, #AAA 50%, #888 100%);
+      border-radius: 3px;
+      animation: eelUndulate 2s ease-in-out infinite;
+    }
+    .eel-segment:nth-child(1) { left: 0px;   animation-delay: 0s; }
+    .eel-segment:nth-child(2) { left: 10px;  animation-delay: 0.1s; }
+    .eel-segment:nth-child(3) { left: 20px;  animation-delay: 0.2s; }
+    .eel-segment:nth-child(4) { left: 30px;  animation-delay: 0.3s; }
+    .eel-segment:nth-child(5) { left: 40px;  animation-delay: 0.4s; }
+    .eel-segment:nth-child(6) { left: 50px;  animation-delay: 0.5s; }
+    .eel-segment:nth-child(7) { left: 60px;  animation-delay: 0.6s; }
+    .eel-segment:nth-child(8) { left: 70px;  animation-delay: 0.7s; }
+
+    /* Cabeza de la anguila */
+    .eel-head {
+      position: absolute;
+      left: -8px;
+      top: -2px;
+      width: 16px;
+      height: 10px;
+      background: linear-gradient(135deg, #999 0%, #BBB 100%);
+      border-radius: 50% 20% 20% 50%;
+      animation: eelHeadMove 2s ease-in-out infinite;
+      z-index: 10;
+    }
+    .eel-head::before {
+      content: '';
+      position: absolute;
+      width: 1.5px;
+      height: 1.5px;
+      background: #333;
+      border-radius: 50%;
+      top: 3px;
+      left: 4px;
+      opacity: 0.8;
+    }
+
+    /* Cola de la anguila - CORREGIDA */
+    .eel-tail {
+      position: absolute;
+      left: 79px; /* Movido más hacia la izquierda para superponerse ligeramente */
+      top: 1px;
+      width: 0;
+      height: 0;
+      border-left: 8px solid #888;
+      border-top: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      animation: eelUndulate 2s ease-in-out infinite;
+      animation-delay: 0.8s; /* Sincronizada con el último segmento + 0.1s */
+      z-index: 5;
+    }
+
+    /* Animaciones */
+    @keyframes eelUndulate {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      25%    { transform: translateY(-3px) rotate(5deg); }
+      50%    { transform: translateY(0) rotate(0deg); }
+      75%    { transform: translateY(3px) rotate(-5deg); }
+    }
+    @keyframes eelHeadMove {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      25%    { transform: translateY(-2px) rotate(3deg); }
+      50%    { transform: translateY(0) rotate(0deg); }
+      75%    { transform: translateY(2px) rotate(-3deg); }
+    }
+
+    /* Ocultar ripples y texto de carga */
+    .water-ripple { display: none; }
+    .loading-text { display: none; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Spinner principal sin ripples, sin borde ni texto -->
+  <div class="eel-component">
+    <div class="eel-spinner">
+      <div class="eel-body">
+        <div class="eel-segment"></div>
+        <div class="eel-segment"></div>
+        <div class="eel-segment"></div>
+        <div class="eel-segment"></div>
+        <div class="eel-segment"></div>
+        <div class="eel-segment"></div>
+        <div class="eel-segment"></div>
+        <div class="eel-segment"></div>
+        <div class="eel-head"></div>
+        <div class="eel-tail"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
