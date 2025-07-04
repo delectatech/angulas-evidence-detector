@@ -152,6 +152,10 @@
             }
           } @else {
             <p-messages class="my-2" [(value)]="warningMessages[0]" [enableService]="false" [closable]="false" />
+            <div class="d-flex justify-content-center align-items-center" style="padding-top: 2rem;">
+              <img src="assets/images/not-found.png" alt="logo" class="logo mb-3" width="200" />
+            </div>
+
           }
         </p-tabPanel>
         <!-- Comments Gallery -->
@@ -203,6 +207,9 @@
             }
           } @else {
             <p-messages class="my-2" [(value)]="warningMessages[1]" [enableService]="false" [closable]="false" />
+            <div class="d-flex justify-content-center align-items-center" style="padding-top: 2rem;">
+                <img src="assets/images/not-found.png" alt="logo" class="logo mb-3" width="200" />
+            </div>
           }
         </p-tabPanel>
       </p-tabView>

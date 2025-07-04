@@ -8,24 +8,37 @@
     }
   }
 
-   .p-tag-danger{
+   .p-tag-danger {
     background-color: #F7EDF1;
     color: #650A00;
     font-weight: 400;
   }
 
-  .p-tag-success{
+  .p-tag-success {
     background-color: #C4EDDE;
     color: #00373B;
     font-weight: 400;
   }
 
-  .p-progressbar-value{
+  .p-progressbar-value {
     background-color: #626ED4 !important;
   }
+
+  .p-datatable-column-sorted {
+    background-color: #626ED414 !important;
+    color: #626ED4 !important
+  }
+
+  .potential-slider .p-slider .p-slider-handle {
+    background-color: #ffffff !important;
+    border-color: #ffffff !important;
+    box-shadow: 0px 1px 3px 1px #00000026;
+    box-shadow: 0px 1px 2px 0px #0000004D;
+  }
+
 }
 
-.info-panel{
+.info-panel {
   // padding: 1rem;
   border-radius: 15px;
   max-width: 85%;
