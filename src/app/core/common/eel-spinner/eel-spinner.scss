@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eel Spinner - Loading Component</title>
-  <style>
-    /* Reset y configuración base */
+/* Reset y configuración base */
     * {
       margin: 0;
       padding: 0;
@@ -59,16 +52,34 @@
       height: 24px; /* 4x from 6px */
       background: linear-gradient(90deg, #888 0%, #AAA 50%, #888 100%);
       border-radius: 12px; /* 4x from 3px */
+      overflow: hidden; /* Para contener el destello */
       animation: eelUndulate 2s ease-in-out infinite;
     }
-    .eel-segment:nth-child(1) { left: 0px;   animation-delay: 0s; }
-    .eel-segment:nth-child(2) { left: 40px;  animation-delay: 0.1s; } /* 4x from 10px */
-    .eel-segment:nth-child(3) { left: 80px;  animation-delay: 0.2s; } /* 4x from 20px */
-    .eel-segment:nth-child(4) { left: 120px; animation-delay: 0.3s; } /* 4x from 30px */
-    .eel-segment:nth-child(5) { left: 160px; animation-delay: 0.4s; } /* 4x from 40px */
-    .eel-segment:nth-child(6) { left: 200px; animation-delay: 0.5s; } /* 4x from 50px */
-    .eel-segment:nth-child(7) { left: 240px; animation-delay: 0.6s; } /* 4x from 60px */
-    .eel-segment:nth-child(8) { left: 280px; animation-delay: 0.7s; } /* 4x from 70px */
+
+    /* Efecto de destello plateado */
+    .eel-segment::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%; /* Aumentado para cubrir todo el segmento */
+      height: 100%;
+      background: linear-gradient(90deg, 
+        rgba(255,255,255,0) 0%, 
+        rgba(255,255,255,0.7) 50%, 
+        rgba(255,255,255,0) 100%);
+      animation: silverFlash 2s ease-in-out infinite; /* Sincronizado con el movimiento (2s) */
+      animation-delay: calc(var(--index) * 0.1s);
+    }
+
+    .eel-segment:nth-child(1) { left: 0px;   animation-delay: 0s; --index: 0; }
+    .eel-segment:nth-child(2) { left: 40px;  animation-delay: 0.1s; --index: 1; }
+    .eel-segment:nth-child(3) { left: 80px;  animation-delay: 0.2s; --index: 2; }
+    .eel-segment:nth-child(4) { left: 120px; animation-delay: 0.3s; --index: 3; }
+    .eel-segment:nth-child(5) { left: 160px; animation-delay: 0.4s; --index: 4; }
+    .eel-segment:nth-child(6) { left: 200px; animation-delay: 0.5s; --index: 5; }
+    .eel-segment:nth-child(7) { left: 240px; animation-delay: 0.6s; --index: 6; }
+    .eel-segment:nth-child(8) { left: 280px; animation-delay: 0.7s; --index: 7; }
 
     /* Cabeza de la anguila */
     .eel-head {
@@ -97,16 +108,33 @@
     /* Cola de la anguila - CORREGIDA */
     .eel-tail {
       position: absolute;
-      left: 320px; /* 4x from 79px and slightly adjusted for better sync */
-      top: 1.5px; /* 4x from 1px */
-      width: 0;
-      height: 0;
-      border-left: 32px solid #888; /* 4x from 8px */
-      border-top: 12px solid transparent; /* 4x from 3px */
-      border-bottom: 12px solid transparent; /* 4x from 3px */
-      animation: eelUndulate 2s ease-in-out infinite;
-      animation-delay: 0.75s; /* Slightly adjusted to better sync with last segment */
+      left: 320px;
+      top: -6px; /* Ajustado para centrar mejor */
+      width: 40px; /* Ahora necesitamos dimensiones reales */
+      height: 36px; /* Altura suficiente para la cola */
+      background: linear-gradient(90deg, #888, #999); /* Gradiente similar al cuerpo */
+      clip-path: polygon(0% 50%, 20% 20%, 100% 50%, 20% 80%); /* Forma más orgánica */
+      animation: 
+        eelUndulate 2s ease-in-out infinite;
+      animation-delay: 0.75s;
       z-index: 5;
+      overflow: hidden; /* Para contener el destello */
+    }
+
+    /* Efecto de destello para la cola */
+    .eel-tail::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%; /* Aumentado para cubrir toda la cola */
+      height: 100%;
+      background: linear-gradient(90deg, 
+        rgba(255,255,255,0) 0%, 
+        rgba(255,255,255,0.7) 50%, 
+        rgba(255,255,255,0) 100%);
+      animation: silverFlash 2s ease-in-out infinite; /* Sincronizado con el movimiento (2s) */
+      animation-delay: 0.8s;
     }
 
     /* Animaciones */
@@ -123,6 +151,18 @@
       75%    { transform: translateY(8px) rotate(-3deg); } /* 4x from 2px */
     }
 
+    /* Animación del destello plateado - MEJORADA */
+    @keyframes silverFlash {
+      0%, 10%, 40%, 100% {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      20%, 30% {
+        transform: translateX(100%);
+        opacity: 1;
+      }
+    }
+
     /* Ocultar ripples y texto de carga */
     .water-ripple { display: none; }
     .loading-text { display: none; }
@@ -131,25 +171,3 @@
     @media (max-width: 768px) {
       body { padding: 20px; }
     }
-  </style>
-</head>
-<body>
-  <!-- Spinner principal sin ripples, sin borde ni texto -->
-  <div class="eel-component">
-    <div class="eel-spinner">
-      <div class="eel-body">
-        <div class="eel-segment"></div>
-        <div class="eel-segment"></div>
-        <div class="eel-segment"></div>
-        <div class="eel-segment"></div>
-        <div class="eel-segment"></div>
-        <div class="eel-segment"></div>
-        <div class="eel-segment"></div>
-        <div class="eel-segment"></div>
-        <div class="eel-head"></div>
-        <div class="eel-tail"></div>
-      </div>
-    </div>
-  </div>
-</body>
-</html>

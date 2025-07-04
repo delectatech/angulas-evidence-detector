@@ -12,6 +12,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { AuthService } from '../services/auth.service';
 import { TokenService } from '../services/token.service';
 import { AfterViewInit } from '@angular/core';
+import { EelSpinnerComponent } from '@app/core/common/eel-spinner/eel-spinner';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ import { AfterViewInit } from '@angular/core';
     PasswordModule,
     ButtonModule,
     CardModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    EelSpinnerComponent
   ],
   animations: [
     trigger('moveUp', [

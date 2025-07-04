@@ -1,14 +1,17 @@
 <!-- login.component.html -->
 <div class="d-flex justify-content-center align-items-center min-vh-100 main-background">
   <div class="login-card p-4 rounded w-100" style="max-width: 450px;" [@moveUp]>
-    <div *ngIf="loginChecked && !loading">
-
+    <div>
       <div class="header text-center mb-4">
         <img src="assets/images/login-logo.png" alt="logo" class="logo mb-3" width="200" />
         <h1 class="main-title">EVIDENCE DETECTOR</h1>
         <p class="subtitle">by Delectatech</p>
+
+        <div class="spinner" *ngIf="true">
+          <app-eel-spinner></app-eel-spinner>
+        </div>
       </div>
-      <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <form *ngIf="loginChecked && !loading" [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="inputs-container">
           <div class="p-field mb-3">
             <label for="email" class="p-label">Correo electrónico</label>
@@ -63,23 +66,5 @@
         </div>
       </form>
     </div>
-    <ng-container *ngIf="!loginChecked || loading">
-        <div class="header text-center mb-4">
-          <div class="svg-container">
-            <svg width="179" height="166" viewBox="0 0 179 166" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1.52588e-05" width="179" height="166" fill="white" />
-              <path d="M127 80.5L90 18L11 155" stroke="#0E154B" stroke-width="12" />
-              <path d="M106.5 92L90.5 65.5L53.5 127.5" stroke="#0E154B" stroke-width="10" />
-              <rect x="6" y="146.444" width="179" height="18" transform="rotate(-29.243 6 146.444)" fill="white" />
-              <rect x="6" y="146.444" width="179" height="18" transform="rotate(-29.243 6 146.444)" fill="white" />
-              <path d="M131.5 77.5L171.5 147.5" stroke="#0E154B" />
-              <path d="M115 87L138.5 128H28.5" stroke="#0E154B" stroke-width="12" />
-              <path d="M113.5 114.5L102 94.5L65.5 114.5H113.5Z" fill="#0E154B" />
-              <rect x="1.52588e-05" y="148" width="179" height="18" fill="white" />
-              <rect x="1.52588e-05" y="148" width="179" height="18" fill="white" />
-            </svg>
-          </div>
-        </div>
-    </ng-container>
   </div>
 </div>
