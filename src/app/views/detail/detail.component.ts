@@ -140,12 +140,16 @@ export class DetailComponent {
           this.allMenuItems = [];
         }
 
-        if (this.establishmentData.evidences && this.establishmentData.evidences.comments && this.establishmentData.evidences.comments.details) {
+        // Handle comments - now directly from comments instead of evidences.comments
+        if (this.establishmentData.comments && this.establishmentData.comments.details) {
           this.noCommentsFound = false;
-          this.filteredComments = this.establishmentData.evidences.comments.details;
-          this.establishmentData.potential_ratio = parseFloat(this.establishmentData.potential_ratio).toFixed(0);
+          this.filteredComments = this.establishmentData.comments.details.map((comment: any) => ({
+            ...comment,
+            comment_text: comment.body // Map 'body' to 'comment_text' for compatibility
+          }));
         } else {
           this.noCommentsFound = true;
+          this.filteredComments = [];
         }
       },
     });
@@ -222,7 +226,10 @@ export class DetailComponent {
     let allowedLabels: string[] = [];
 
     if (!this.filterSoccerComment && !this.filterSportsComment) {
-      this.filteredComments = this.establishmentData.evidences.comments.details;
+      this.filteredComments = this.establishmentData.comments.details.map((comment: any) => ({
+        ...comment,
+        comment_text: comment.body
+      }));
       this.noCommentsFiltered = false;
     } else {
       if (this.filterSoccerComment) {
@@ -232,9 +239,14 @@ export class DetailComponent {
         allowedLabels.push('sports_comment');
       }
 
-      this.filteredComments = this.establishmentData.evidences.comments.details.filter((comment: any) => {
-        return allowedLabels.some((label) => comment.label === label);
-      });
+      this.filteredComments = this.establishmentData.comments.details
+        .filter((comment: any) => {
+          return allowedLabels.some((label) => comment.label === label);
+        })
+        .map((comment: any) => ({
+          ...comment,
+          comment_text: comment.body
+        }));
       this.noCommentsFiltered = this.filteredComments.length <= 0;
     }
   }
@@ -249,6 +261,10 @@ export class DetailComponent {
         return 'success';
       case 'gulas':
         return 'warning';
+      case 'soccer_comment':
+        return 'success';
+      case 'sports_comment':
+        return 'info';
       default:
         return 'info';
     }

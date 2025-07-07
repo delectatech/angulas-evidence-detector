@@ -182,7 +182,8 @@
         <!-- Comments Gallery -->
         <p-tabPanel header="Comentarios" leftIcon="pi pi-comments">
           @if (!noCommentsFound) {
-            <div class="custom-card-header row p-3">
+            <!-- Filter commented for next possible implementation on other clients -->
+            <!-- <div class="custom-card-header row p-3">
               <div class="col-md-4 d-flex justify-content-center align-items-center">
                 <label for="filterSoccerComment" class="me-2 mb-1"><p-tag [value]="'Comentario de Fútbol'" [severity]="'success'" /></label>
                 <p-inputSwitch [(ngModel)]="filterSoccerComment" (onChange)="applyCommentFilter()" id="filterSoccerComment"></p-inputSwitch>
@@ -191,7 +192,7 @@
                 <label for="filterSportsComment" class="me-2 mb-1"><p-tag [value]="'Comentario de Deportes'" [severity]="'info'" /></label>
                 <p-inputSwitch [(ngModel)]="filterSportsComment" (onChange)="applyCommentFilter()" id="filterSportsComment"></p-inputSwitch>
               </div>
-            </div>
+            </div> -->
 
             @if (!noCommentsFiltered) {
               <p-scrollPanel class="my-4" [style]="{ height: '50vh' }">
@@ -206,12 +207,12 @@
                                 <i class="pi pi-calendar mx-2"></i>
                                 {{ capitalizeDate(comment.date) }}
                               </h4>
-                              <p-tag
+                              <!-- <p-tag
                                 class="positioned-tag"
-                                [value]="comment.label === 'soccer_comment' ? 'Comentario de Fútbol' : 'Comentario de Deportes'"
-                                [severity]="comment.label === 'soccer_comment' ? 'success' : 'info'"
+                                [value]="comment.label"
+                                [severity]="getSeverity(comment.label)"
                               >
-                              </p-tag>
+                              </p-tag> -->
                             </div>
                           </ng-template>
                           <p>
