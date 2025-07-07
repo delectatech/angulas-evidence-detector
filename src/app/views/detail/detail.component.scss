@@ -204,7 +204,8 @@ i {
 
 /* Sombra predeterminada para las tarjetas */
 ::ng-deep .p-card {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+  background-color: #F6F6F7;
+  box-shadow: 0px 1px 3px 1px #00000026, 0px 1px 2px 0px #0000004D;
   transition: box-shadow 0.3s ease; /* Transición suave para el hover */
   border-radius: 8px; /* Bordes redondeados */
 }
@@ -212,6 +213,26 @@ i {
 /* Sombra más pronunciada en hover */
 ::ng-deep .p-card:hover {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos específicos para los comentarios */
+::ng-deep .p-card .p-card-header {
+  padding: 1rem 1.5rem 0.5rem 1.5rem;
+}
+
+::ng-deep .p-card .p-card-header h4 {
+  font-weight: 700;
+  font-size: 24px;
+  color: #111111;
+  margin: 0;
+}
+
+::ng-deep .p-card .p-card-content p {
+  font-weight: 400;
+  font-size: 16px;
+  color: #111111;
+  margin: 0;
+  padding: 0.5rem 1.5rem 1rem 1.5rem;
 }
 
 /* Posicionar el p-tag en la esquina superior derecha */
@@ -356,12 +377,24 @@ i {
     border-width: 0px !important;
   }
 
-  // Highlight class for "gula" word - using ::ng-deep to penetrate view encapsulation
-  .highlight-gula {
-    background-color: #ffff00 !important; // Yellow background
-    color: #000000 !important; // Red text
-    font-weight: bold !important;
-    padding: 1px 2px !important;
-    border-radius: 2px !important;
+/* Efecto brocha con pseudo-elementos para más realismo */
+.highlight-gula {
+  background: linear-gradient(104deg, 
+    #0004ff2b 0.9%, 
+    #0004ff3b 2.4%, 
+    #0004ff2b 5.8%, 
+    #0004ff4b 93%, 
+    #0004ff2b 96%, 
+    #0004ff3b 98%
+  ) !important;
+  color: #000000 !important;
+  font-weight: bold !important;
+  padding: 2px 4px !important;
+  border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px !important;
+  position: relative !important;
+}
+
+  .p-card-body{
+    padding: 0rem 1.5rem; /* Adjust padding for card body */
   }
 }

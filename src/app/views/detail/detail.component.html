@@ -96,7 +96,7 @@
 
             @if (!noMenuFiltered) {
               <p-scrollPanel [style]="{ height: '50vh' }">
-                <div class="grid mx-auto" style="max-width: 800px; position: relative">
+                <div class="grid mx-auto" style="max-width: 1000px; position: relative">
                   <div class="row justify-content-center">
                     <div
                       *ngFor="let menuItem of allMenuItems; let index = index"
@@ -196,14 +196,13 @@
             @if (!noCommentsFiltered) {
               <p-scrollPanel class="my-4" [style]="{ height: '50vh' }">
                 <div>
-                  <div class="grid mx-auto my-4" style="max-width: 800px">
+                  <div class="grid mx-auto my-4" style="max-width: 1000px">
                     <div class="row">
                       <div *ngFor="let comment of filteredComments; let i = index" class="col-12 d-flex flex-column mb-3">
-                        <p-card class="w-100" [style]="{ position: 'relative' }">
+                        <p-card class="w-100 py-2" [style]="{ position: 'relative' }">
                           <ng-template pTemplate="header">
                             <div class="d-flex justify-content-between align-items-center">
                               <h4 class="mx-4 my-4 d-flex align-items-center">
-                                <i class="pi pi-calendar mx-2"></i>
                                 {{ capitalizeDate(comment.date) }}
                               </h4>
                               <!-- <p-tag
