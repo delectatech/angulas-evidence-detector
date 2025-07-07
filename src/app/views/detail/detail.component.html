@@ -7,7 +7,7 @@
   <div class="mx-4 my-2">
     <h2 class="text-center restaurant-name">
       <span *ngIf="!establishmentData" class="skeleton skeleton-text" style="width: 100%"></span>
-      {{ establishmentData ? establishmentData.name : '' }}
+      <span *ngIf="establishmentData" [innerHTML]="highlightGula(establishmentData.name)"></span>
     </h2>
     <section class="component-container">
       <p-tabView (onChange)="handleTabChange($event)">
@@ -26,8 +26,7 @@
                 <th scope="row" style="width: 40%">Dirección:</th>
                 <td style="width: 60%">
                   <div *ngIf="!establishmentData" class="skeleton skeleton-text" style="width: 100%"></div>
-                  <span [ngClass]="{ namePopUp: establishmentData?.links.googleUrl || establishmentData?.links.tripAdvisorUrl }" (click)="redirectDirection(establishmentData?.links)">
-                    {{ establishmentData ? establishmentData.streetAddress : '' }}
+                  <span *ngIf="establishmentData" [ngClass]="{ namePopUp: establishmentData?.links.googleUrl || establishmentData?.links.tripAdvisorUrl }" (click)="redirectDirection(establishmentData?.links)" [innerHTML]="highlightGula(establishmentData.streetAddress)">
                     <i *ngIf="establishmentData?.links.googleUrl" class="mx-1 fa-regular fa-map"></i>
                     <i *ngIf="establishmentData?.links.tripAdvisorUrl && !establishmentData?.links.googleUrl" class="fa-solid fa-utensils"></i>
                   </span>
@@ -215,8 +214,7 @@
                               </p-tag> -->
                             </div>
                           </ng-template>
-                          <p>
-                            {{ comment.comment_text }}
+                          <p [innerHTML]="highlightGula(comment.comment_text)">
                           </p>
                         </p-card>
                       </div>

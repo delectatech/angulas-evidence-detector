@@ -372,4 +372,10 @@ export class DetailComponent {
     }
     this.sendTracking('open_street_direction_from_detail', { parameters: { establishment_Uid: this.uid, redirect_website: type } });
   }
+
+  // Method to highlight "gula" word in text
+  highlightGula(text: string): string {
+    if (!text) return text;
+    return text.replace(/gulas?/gi, '<span class="highlight-gula">$&</span>');
+  }
 }

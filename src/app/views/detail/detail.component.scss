@@ -355,4 +355,13 @@ i {
     border-style: solid;
     border-width: 0px !important;
   }
+
+  // Highlight class for "gula" word - using ::ng-deep to penetrate view encapsulation
+  .highlight-gula {
+    background-color: #ffff00 !important; // Yellow background
+    color: #000000 !important; // Red text
+    font-weight: bold !important;
+    padding: 1px 2px !important;
+    border-radius: 2px !important;
+  }
 }
