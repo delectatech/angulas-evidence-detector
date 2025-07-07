@@ -67,6 +67,7 @@
                 <td style="width: 55%">
                   @if (establishmentData?.score === 0 || !establishmentData) {
                     <div style="position: relative; width: 100%">
+                      holaaaaaaaaaaaaaaaaaaa
                       <p-progressBar [value]="establishmentData ? establishmentData.score*100 : 0"></p-progressBar>
                       <div class="progress-text">{{ establishmentData?.score*100 || 0 }}%</div>
                     </div>
@@ -79,10 +80,11 @@
           </table>
         </p-tabPanel>
 
-        <!-- Images Gallery -->
-        <p-tabPanel header="Menu" leftIcon="pi pi-image">
-          @if (!noImagesFound) {
-            <div class="custom-card-header row p-3">
+        <!-- Menu Gallery -->
+        <p-tabPanel header="Menú" leftIcon="pi pi-image">
+          @if (!noMenuFound) {
+            <!-- Filter commented for next possible implementation on other clients -->
+            <!-- <div class="custom-card-header row p-3">
               <div class="col-md-4 d-flex justify-content-center align-items-center">
                 <label for="filterTvSoccer" class="me-2 mb-1"><p-tag [value]="'TV con Fútbol'" [severity]="'success'" /></label>
                 <p-inputSwitch [(ngModel)]="filterTvSoccer" (onChange)="applyFilter()" id="filterTvSoccer"></p-inputSwitch>
@@ -91,38 +93,59 @@
                 <label for="filterTv" class="me-2 mb-1"><p-tag [value]="'TV:'" [severity]="'info'" /></label>
                 <p-inputSwitch [(ngModel)]="filterTv" (onChange)="applyFilter()" id="filterTv"></p-inputSwitch>
               </div>
-            </div>
+            </div> -->
 
-            @if (!noImagesFiltered) {
+            @if (!noMenuFiltered) {
               <p-scrollPanel [style]="{ height: '50vh' }">
                 <div class="grid mx-auto" style="max-width: 800px; position: relative">
                   <div class="row justify-content-center">
                     <div
-                      *ngFor="let image of filteredImages; let index = index"
-                      class="col-12 col-sm-6 col-md-4 d-flex flex-column align-items-center mb-3 image-container"
+                      *ngFor="let menuItem of allMenuItems; let index = index"
+                      class="col-12 col-sm-6 col-md-4 d-flex flex-column align-items-center mb-3 menu-item-container"
                       style="width: 200px; height: 250px; position: relative; overflow: hidden"
                     >
-                      <small class="text-muted">{{ shortDate(image.date) }}</small>
-                      @if (!image.isLoaded) {
-                        <p-skeleton size="176px" styleClass="mr-2" />
+                      <small class="text-muted">{{ shortDate(menuItem.date) }}</small>
+                      
+                      <!-- Display image if it's an image type -->
+                      @if (isImageType(menuItem.type)) {
+                        @if (!menuItem.isLoaded) {
+                          <p-skeleton size="176px" styleClass="mr-2" />
+                        }
+                        <img
+                          [src]="menuItem.image_url + '?size=300x350'"
+                          [alt]="menuItem.label"
+                          [ngClass]="{
+                            loaded: menuItem.isLoaded,
+                          }"
+                          class="imageGallery"
+                          (click)="imageClick(index, menuItem.image_url + '?size=300x350')"
+                          (load)="menuItem.isLoaded = true"
+                          loading="lazy"
+                        />
+                        <!-- <div *ngIf="menuItem.isLoaded" style="width: 100%; text-align: center">
+                          <p-tag class="my-2" [value]="menuItem.label" [severity]="getSeverity(menuItem.label)" />
+                        </div> -->
                       }
-                      <img
-                        [src]="image.image_url + '?size=300x350'"
-                        [alt]="image.label == 'tv' ? 'tv' : 'TV con Fútbol'"
-                        [ngClass]="{
-                          loaded: image.isLoaded,
-                        }"
-                        class="imageGallery"
-                        (click)="imageClick(index, image.image_url + '?size=300x350')"
-                        (load)="image.isLoaded = true"
-                        loading="lazy"
-                      />
-                      <div *ngIf="image.isLoaded" style="width: 100%; text-align: center">
-                        <p-tag class="my-2" [value]="image.label == 'tv' ? 'TV' : 'TV con Fútbol'" [severity]="getSeverity(image.label)" />
-                      </div>
+                      
+                      <!-- Display button if it's a link type -->
+                      @if (isLinkType(menuItem.type)) {
+                        <div class="menu-link-button d-flex flex-column align-items-center justify-content-center h-100 w-100">
+                          <i [class]="'fas ' + getMenuItemIcon(menuItem.type) + ' menu-link-icon'"></i>
+                          <p-button 
+                            [label]="getMenuItemLabel(menuItem.type)"
+                            icon="pi pi-external-link"
+                            styleClass="p-button-outlined p-button-primary"
+                            (click)="openMenuLink(menuItem)"
+                          ></p-button>
+                          <!-- <div style="width: 100%; text-align: center; margin-top: 10px;">
+                            <p-tag class="my-2" [value]="menuItem.label" [severity]="getSeverity(menuItem.label)" />
+                          </div> -->
+                        </div>
+                      }
                     </div>
                   </div>
                 </div>
+                <!-- Image Gallery for images only -->
                 <p-galleria
                   [value]="filteredImages"
                   [(visible)]="displayGallery"
@@ -134,13 +157,12 @@
                   [showItemNavigators]="true"
                   [showThumbnails]="false"
                 >
-                  <!--  -->
                   <ng-template pTemplate="item" let-item>
                     <div style="display: flex; justify-content: center; align-items: center; height: 100vh; padding: 100px 0; position: relative">
                       <img [src]="item.image_url" style="max-width: 100%; max-height: 100%; object-fit: contain" />
                       <div style="position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%); text-align: center; width: 100%">
                         <h4 style="margin-top: 0.2rem; color: #ffffff">
-                          <p-tag class="my-2" [value]="item.label == 'tv' ? 'TV' : 'TV con Fútbol'" [severity]="getSeverity(item.label)" />
+                          <p-tag class="my-2" [value]="item.label" [severity]="getSeverity(item.label)" />
                         </h4>
                       </div>
                     </div>
@@ -155,7 +177,6 @@
             <div class="d-flex justify-content-center align-items-center" style="padding-top: 2rem;">
               <img src="assets/images/not-found.png" alt="logo" class="logo mb-3" width="200" />
             </div>
-
           }
         </p-tabPanel>
         <!-- Comments Gallery -->

@@ -15,6 +15,7 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { MessagesModule } from 'primeng/messages';
 import { SkeletonModule } from 'primeng/skeleton';
+import { ButtonModule } from 'primeng/button';
 import { TrackingService } from '@app/core/services/tracking.service';
 
 @Component({
@@ -34,6 +35,7 @@ import { TrackingService } from '@app/core/services/tracking.service';
     PanelModule,
     SkeletonModule,
     MessagesModule,
+    ButtonModule,
   ],
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.scss',
@@ -44,6 +46,8 @@ export class DetailComponent {
   filterTv: boolean = false;
   filterTvSoccer: boolean = false;
   filteredImages: any[] = [];
+  menuLinks: any[] = [];
+  allMenuItems: any[] = []; // Combined and sorted menu items (images + links)
   filteredComments: any[] = [];
   filterSoccerComment: boolean = false;
   filterSportsComment: boolean = false;
@@ -52,9 +56,9 @@ export class DetailComponent {
   activeIndex: number = 0;
   allImagesLoaded: boolean = false;
   loadedImagesCount: number = 0;
-  noImagesFound: boolean = false;
+  noMenuFound: boolean = false;
   noCommentsFound: boolean = false;
-  noImagesFiltered: boolean = false;
+  noMenuFiltered: boolean = false;
   noCommentsFiltered: boolean = false;
   visibleIndicators: number[] = []; // Array que almacenará los indicadores visibles
   maxIndicators: number = 5; // Número máximo de indicadores visibles a la vez
@@ -62,7 +66,7 @@ export class DetailComponent {
     [
       {
         severity: 'warn',
-        detail: 'No se han encontrado evidencias en los menús analizados de este establecimiento.',
+        detail: 'No se han encontrado menús analizados de este establecimiento.',
       },
     ],
     [
@@ -71,7 +75,7 @@ export class DetailComponent {
         detail: 'No se han encontrado evidencias en los comentarios analizados de este establecimiento.',
       },
     ],
-    [{ severity: 'info', detail: 'No hay imágenes con esos filtros' }],
+    [{ severity: 'info', detail: 'No hay menús con esos filtros' }],
     [{ severity: 'info', detail: 'No hay comentarios con esos filtros' }],
   ];
   responsiveOptions: any[] = [
@@ -124,14 +128,19 @@ export class DetailComponent {
       next: (resp: any) => {
         this.establishmentData = resp;
         this.establishmentData.potential_ratio = parseFloat(this.establishmentData.potential_ratio).toFixed(0);
-        if (this.establishmentData.evidences.images.details) {
-          this.noImagesFound = false;
-          this.filteredImages = this.establishmentData.evidences.images.details;
+        
+        // Handle menus instead of evidences.images
+        if (this.establishmentData.menus && this.establishmentData.menus.details) {
+          this.noMenuFound = false;
+          this.processMenuData(this.establishmentData.menus.details);
         } else {
-          this.noImagesFound = true;
+          this.noMenuFound = true;
+          this.filteredImages = [];
+          this.menuLinks = [];
+          this.allMenuItems = [];
         }
 
-        if (this.establishmentData.evidences.comments.details) {
+        if (this.establishmentData.evidences && this.establishmentData.evidences.comments && this.establishmentData.evidences.comments.details) {
           this.noCommentsFound = false;
           this.filteredComments = this.establishmentData.evidences.comments.details;
           this.establishmentData.potential_ratio = parseFloat(this.establishmentData.potential_ratio).toFixed(0);
@@ -140,6 +149,27 @@ export class DetailComponent {
         }
       },
     });
+  }
+
+  processMenuData(menuDetails: any[]) {
+    // Separate images from links based on type
+    const imageTypes = ['GOOGLE', 'WEB_IMG'];
+    const linkTypes = ['PDF', 'HTML'];
+
+    this.filteredImages = menuDetails
+      .filter(item => imageTypes.includes(item.type))
+      .map(item => ({
+        ...item,
+        image_url: item.sourceLink,
+        isLoaded: false
+      }));
+
+    this.menuLinks = menuDetails
+      .filter(item => linkTypes.includes(item.type));
+
+    // Combine and sort all menu items by date
+    this.allMenuItems = [...this.filteredImages, ...this.menuLinks]
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }
 
   handleTabChange(event: any) {
@@ -160,11 +190,15 @@ export class DetailComponent {
   }
 
   applyFilter() {
-    this.sendTracking('image_gallery_filter', { parameters: { establishment_uid: this.uid, filter_tv: this.filterTv, filter_tv_soccer: this.filterTvSoccer } });
+    this.sendTracking('menu_filter', { parameters: { establishment_uid: this.uid, filter_tv: this.filterTv, filter_tv_soccer: this.filterTvSoccer } });
     let allowedLabels: string[] = [];
+    
     if (!this.filterTv && !this.filterTvSoccer) {
-      this.filteredImages = this.establishmentData.evidences.images.details;
-      this.noImagesFiltered = false;
+      // Show all menu items when no filter is applied
+      if (this.establishmentData.menus && this.establishmentData.menus.details) {
+        this.processMenuData(this.establishmentData.menus.details);
+      }
+      this.noMenuFiltered = false;
     } else {
       if (this.filterTv) {
         allowedLabels.push('tv');
@@ -173,10 +207,13 @@ export class DetailComponent {
         allowedLabels.push('tv with soccer');
       }
 
-      this.filteredImages = this.establishmentData.evidences.images.details.filter((image: any) => {
-        return allowedLabels.some((label) => image.label === label);
+      // Filter all menu items
+      const filteredMenuItems = this.establishmentData.menus.details.filter((item: any) => {
+        return allowedLabels.some((label) => item.label === label);
       });
-      this.noImagesFiltered = this.filteredImages.length == 0;
+
+      this.processMenuData(filteredMenuItems);
+      this.noMenuFiltered = this.allMenuItems.length == 0;
     }
   }
 
@@ -210,15 +247,64 @@ export class DetailComponent {
         return 'secondary';
       case 'tv with soccer':
         return 'success';
+      case 'gulas':
+        return 'warning';
       default:
         return 'info';
     }
   }
 
-  imageClick(index: number, image_url?: string) {
-    this.activeIndex = index;
-    this.displayGallery = true;
-    this.sendTracking('image_gallery_click', { parameters: { establishment_uid: this.uid, image_url: image_url } });
+  imageClick(menuItemIndex: number, image_url?: string) {
+    // Find the actual index in filteredImages array
+    const menuItem = this.allMenuItems[menuItemIndex];
+    const imageIndex = this.filteredImages.findIndex(img => img.md5 === menuItem.md5);
+    
+    if (imageIndex >= 0) {
+      this.activeIndex = imageIndex;
+      this.displayGallery = true;
+      this.sendTracking('image_gallery_click', { parameters: { establishment_uid: this.uid, image_url: image_url } });
+    }
+  }
+
+  openMenuLink(link: any) {
+    window.open(link.sourceLink, '_blank');
+    this.sendTracking('menu_link_click', { 
+      parameters: { 
+        establishment_uid: this.uid, 
+        link_type: link.type, 
+        link_url: link.sourceLink 
+      } 
+    });
+  }
+
+  isImageType(type: string): boolean {
+    return ['GOOGLE', 'WEB_IMG'].includes(type);
+  }
+
+  isLinkType(type: string): boolean {
+    return ['PDF', 'HTML'].includes(type);
+  }
+
+  getMenuItemIcon(type: string): string {
+    switch (type) {
+      case 'PDF':
+        return 'fa-file-pdf';
+      case 'HTML':
+        return 'fa-globe';
+      default:
+        return 'fa-external-link';
+    }
+  }
+
+  getMenuItemLabel(type: string): string {
+    switch (type) {
+      case 'PDF':
+        return 'Ver PDF';
+      case 'HTML':
+        return 'Ver Web';
+      default:
+        return 'Abrir enlace';
+    }
   }
 
   onImageLoad() {
