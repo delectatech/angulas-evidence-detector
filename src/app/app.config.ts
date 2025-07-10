@@ -16,7 +16,10 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(HttpClientModule),
     providePrimeNG({
       theme: {
-        preset: Aura
+        preset: Aura,
+        options: {
+          darkModeSelector: false
+        }
       }
     }),
     provideAnimations(),
