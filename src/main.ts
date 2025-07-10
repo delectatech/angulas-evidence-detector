@@ -4,7 +4,7 @@ import { AppComponent } from './app/app.component';
 import posthog from 'posthog-js';
 import { environment } from './environments/environment';
 
-if (environment.enableTracking) {
+if (false) {
   posthog.init('phc_O0C2huZbcBSsCpvSiwV6dkxtT72BMo7aoUJc2qJIVfV', {
     api_host: 'https://us.i.posthog.com',
     person_profiles: 'identified_only',
