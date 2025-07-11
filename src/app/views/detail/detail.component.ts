@@ -289,11 +289,11 @@ export class DetailComponent {
   }
 
   isImageType(type: string): boolean {
-    return ['GOOGLE', 'WEB_IMG'].includes(type);
+    return ['GOOGLE', 'WEB_IMG', 'PDF'].includes(type);
   }
 
   isLinkType(type: string): boolean {
-    return ['PDF', 'HTML'].includes(type);
+    return ['HTML'].includes(type);
   }
 
   getMenuItemIcon(type: string): string {
