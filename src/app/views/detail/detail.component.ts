@@ -56,10 +56,8 @@ export class DetailComponent {
   activeIndex: number = 0;
   allImagesLoaded: boolean = false;
   loadedImagesCount: number = 0;
-  noMenuFound: boolean = false;
-  noCommentsFound: boolean = false;
-  noMenuFiltered: boolean = false;
-  noCommentsFiltered: boolean = false;
+  hasComments: boolean = false;
+  hasMenus: boolean = false;
   visibleIndicators: number[] = []; // Array que almacenará los indicadores visibles
   maxIndicators: number = 5; // Número máximo de indicadores visibles a la vez
   warningMessages = [
@@ -75,8 +73,8 @@ export class DetailComponent {
         detail: 'No se han encontrado evidencias en los comentarios analizados de este establecimiento.',
       },
     ],
-    [{ severity: 'info', detail: 'No hay menús con esos filtros' }],
-    [{ severity: 'info', detail: 'No hay comentarios con esos filtros' }],
+    [{ severity: 'warn', detail: 'No se han encontrado evidencias en los menús analizados de este establecimiento.' }],
+    [{ severity: 'warn', detail: 'No se han encontrado evidencias en los comentarios analizados de este establecimiento.' }],
   ];
   responsiveOptions: any[] = [
     {
@@ -130,25 +128,25 @@ export class DetailComponent {
         this.establishmentData.potential_ratio = parseFloat(this.establishmentData.potential_ratio).toFixed(0);
         
         // Handle menus instead of evidences.images
-        if (this.establishmentData.menus && this.establishmentData.menus.details) {
-          this.noMenuFound = false;
+        if (this.establishmentData.menus && this.establishmentData.menus.details && this.establishmentData.menus.details.length > 0) {
+          this.hasMenus = true;
           this.processMenuData(this.establishmentData.menus.details);
         } else {
-          this.noMenuFound = true;
+          this.hasMenus = false;
           this.filteredImages = [];
           this.menuLinks = [];
           this.allMenuItems = [];
         }
 
         // Handle comments - now directly from comments instead of evidences.comments
-        if (this.establishmentData.comments && this.establishmentData.comments.details) {
-          this.noCommentsFound = false;
+        if (this.establishmentData.comments && this.establishmentData.comments.details && this.establishmentData.comments.details.length > 0) {
+          this.hasComments = true;
           this.filteredComments = this.establishmentData.comments.details.map((comment: any) => ({
             ...comment,
             comment_text: comment.body // Map 'body' to 'comment_text' for compatibility
           }));
         } else {
-          this.noCommentsFound = true;
+          this.hasComments = false;
           this.filteredComments = [];
         }
       },
@@ -202,7 +200,6 @@ export class DetailComponent {
       if (this.establishmentData.menus && this.establishmentData.menus.details) {
         this.processMenuData(this.establishmentData.menus.details);
       }
-      this.noMenuFiltered = false;
     } else {
       if (this.filterTv) {
         allowedLabels.push('tv');
@@ -217,7 +214,7 @@ export class DetailComponent {
       });
 
       this.processMenuData(filteredMenuItems);
-      this.noMenuFiltered = this.allMenuItems.length == 0;
+      this.hasMenus = this.allMenuItems.length > 0;
     }
   }
 
@@ -230,7 +227,6 @@ export class DetailComponent {
         ...comment,
         comment_text: comment.body
       }));
-      this.noCommentsFiltered = false;
     } else {
       if (this.filterSoccerComment) {
         allowedLabels.push('soccer_comment');
@@ -247,7 +243,6 @@ export class DetailComponent {
           ...comment,
           comment_text: comment.body
         }));
-      this.noCommentsFiltered = this.filteredComments.length <= 0;
     }
   }
 
