@@ -291,8 +291,7 @@ export class ListComponent {
 
   showMethodology() {
     this.dialog.open(this.methodologyTemplate, {
-      width: '600px',
-      maxWidth: '90vw'
+      maxWidth: '80vw'
     });
   }
 }

@@ -165,26 +165,45 @@
   </h2>
   
   <mat-dialog-content>
-    <p>
-      Una evidencia es considerada válida si presenta al menos una mención de <strong>"Gula(s)"</strong> o <strong>"Gula del Norte"</strong> en alguna de estas fuentes en los establecimientos:
-    </p>
-    
+    <p>Para llevar a cabo este análisis, se han recogido y procesado tres tipos de fuentes de información:</p>
     <ul>
-      <li>Cartas digitales publicadas online</li>
-      <li>Fotografías de menús (físicos o digitales)</li>
-      <li>Comentarios o reseñas en directorios online</li>
+      <li>
+        <strong>Imágenes:</strong> Se han analizado todos los menús en formato imagen accesibles públicamente (Google, TripAdvisor, PDFs…) con fecha posterior a enero de 2024.
+      </li>
+      <li>
+        <strong>Web:</strong> Se ha revisado el contenido de las páginas web oficiales de los restaurantes, identificando menciones a productos de gulas disponibles durante junio de 2025.
+      </li>
+      <li>
+        <strong>Comentarios:</strong> Se han analizado los comentarios en diferentes directorios online de los comensales publicados desde julio de 2024 en adelante.
+      </li>
     </ul>
     
-    <p>
-      <em>La selección prioriza las evidencias de cartas (por su mayor fiabilidad) frente a menciones en comentarios.</em>
-    </p>
-    
-    <p>
-      La fecha de detección permite priorizar las evidencias más recientes, otorgándoles mayor relevancia en el sistema de valoración.
-    </p>
+    <p>Tras la recogida de evidencias, se ha realizado una segmentación de <strong>4.000 restaurantes</strong>, siguiendo estos criterios:</p>
+    <ul>
+      <li>Se han <strong>excluido</strong> aquellos establecimientos sin evidencias de carta (imagen o web).</li>
+      <li>También se han <strong>excluido</strong> los restaurantes ubicados en Andalucía, Murcia, Extremadura, Baleares y Canarias (regiones no incluidas en el contrato).</li>
+      <li>
+        A cada restaurante se le ha asignado un <strong>score</strong> basado en:
+        <ul>
+          <li>
+            <strong>La fuente y relevancia de la evidencia:</strong>
+            <ul>
+              <li>Prioridad: “gula del norte” en menú imagen &gt; “gulas” en menú imagen &gt; “gula” en web &gt; “gulas” en web.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>La cantidad y calidad de comentarios,</strong> con mayor peso para las menciones a “gula del norte”.
+          </li>
+          <li>
+            El <strong>scoring final</strong> resulta de aplicar el mismo criterio, ajustado según la antigüedad del menú o web más reciente, así como el volumen total de comentarios encontrados, de forma que se prioriza la evidencia más actual y abundante.
+          </li>
+        </ul>
+      </li>
+    </ul>
   </mat-dialog-content>
   
   <mat-dialog-actions align="center">
     <button mat-raised-button color="primary" mat-dialog-close>Entendido</button>
   </mat-dialog-actions>
 </ng-template>
+
