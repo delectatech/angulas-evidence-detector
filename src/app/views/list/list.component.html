@@ -130,7 +130,6 @@
             <ng-container *ngSwitchCase="'total_comments'">
               {{ (rowData?.comments?.elvers_count || rowData?.comments?.north_elvers_count) || '-' }}
             </ng-container>
-            </ng-container>
             <!-- Potential Ratio as Progress Bar -->
             <ng-container *ngSwitchCase="'score'">
               <p-progressBar [value]="rowData['score_progressBar']" [showValue]="false" />
