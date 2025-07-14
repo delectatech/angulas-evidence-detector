@@ -100,7 +100,6 @@ export class ListComponent {
       { field: 'streetAddress', header: 'Dirección', orderable: false },
       { field: 'provinceName', header: 'Provincia', orderable: false },
       { field: 'regionName', header: 'Región', orderable: false },
-      { field: 'status', header: 'Estado del local', orderable: false },
       { field: 'score', header: 'Score', orderable: true },
       {
         field: 'total_images',

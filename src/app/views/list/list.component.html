@@ -130,10 +130,6 @@
             <ng-container *ngSwitchCase="'total_comments'">
               {{ rowData?.comments?.elvers_count ?? '-' }}
             </ng-container>
-            <!-- Status Field -->
-            <ng-container *ngSwitchCase="'status'">
-              <p-tag [value]="rowData[col.field] === 'OPERATIONAL' ? 'Abierto' : 'Cerrado'" [severity]="rowData[col.field] === 'OPERATIONAL' ? 'info' : 'danger'" />
-            </ng-container>
             <!-- Potential Ratio as Progress Bar -->
             <ng-container *ngSwitchCase="'score'">
               <p-progressBar [value]="rowData['score_progressBar']" [showValue]="false" />

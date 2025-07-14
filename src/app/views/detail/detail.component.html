@@ -47,21 +47,6 @@
                 </td>
               </tr>
               <tr>
-                <th scope="row" style="width: 40%">Estado:</th>
-                <td style="width: 60%">
-                  <div *ngIf="!establishmentData" class="skeleton-tag" style="width: 100px; height: 24px; border-radius: 10px"></div>
-                  <span
-                    *ngIf="establishmentData"
-                    [ngClass]="{
-                      'p-text-success': establishmentData.status === 'OPERATIONAL',
-                      'text-danger': establishmentData.status !== 'OPERATIONAL',
-                    }"
-                  >
-                    <p-tag [value]="establishmentData.status === 'OPERATIONAL' ? 'Abierto' : 'Cerrado'" [severity]="establishmentData.status === 'OPERATIONAL' ? 'info' : 'danger'"> </p-tag>
-                  </span>
-                </td>
-              </tr>
-              <tr>
                 <th scope="row" style="width: 45%">Ratio de Potencial:</th>
                 <td style="width: 55%">
                   @if (establishmentData?.score === 0 || !establishmentData) {
