@@ -19,7 +19,6 @@ import { TooltipModule } from 'primeng/tooltip';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { CheckboxModule } from 'primeng/checkbox';
-import { NumberFormatPipe } from '../../number-format.pipe';
 import { TrackingService } from '@app/core/services/tracking.service';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
@@ -49,13 +48,12 @@ import { EelSpinnerComponent } from '../../core/common/eel-spinner/eel-spinner';
     InputIconModule,
     SliderModule,
     CheckboxModule,
-    NumberFormatPipe,
     MessagesModule,
     MessageModule,
     MatDialogModule,
     MatButtonModule,
     EelSpinnerComponent
-  ],
+],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
