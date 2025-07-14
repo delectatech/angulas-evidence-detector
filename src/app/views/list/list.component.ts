@@ -178,7 +178,6 @@ export class ListComponent {
     this.sortField = (event.sortField as string) || 'score';
     this.sortOrder = event.sortOrder || -1;
     this.first = event.first || 0;
-    console.log('combinedEvent.filters =>', combinedEvent.filters);
     this.saveFiltersToLocalStore();
 
     this.loadList(combinedEvent);
