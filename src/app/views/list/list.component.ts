@@ -287,6 +287,24 @@ export class ListComponent {
     this.trackingService.trackAction(name, parameters).subscribe();
   }
 
+  getFullAddress(rowData: any): string {
+    const parts: string[] = [];
+    
+    if (rowData.streetAddress) {
+      parts.push(rowData.streetAddress);
+    }
+    
+    if (rowData.numberAddress) {
+      parts.push(rowData.numberAddress);
+    }
+    
+    if (rowData.cityName) {
+      parts.push(rowData.cityName);
+    }
+    
+    return parts.join(', ');
+  }
+
   showMethodology() {
     this.dialog.open(this.methodologyTemplate, {
       maxWidth: '80vw'

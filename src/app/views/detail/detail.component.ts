@@ -368,6 +368,27 @@ export class DetailComponent {
     this.sendTracking('open_street_direction_from_detail', { parameters: { establishment_Uid: this.uid, redirect_website: type } });
   }
 
+  getFullAddress(): string {
+    if (!this.establishmentData) return '';
+    
+    const parts: string[] = [];
+    
+    if (this.establishmentData.streetAddress) {
+      parts.push(this.establishmentData.streetAddress);
+    }
+    
+    if (this.establishmentData.numberAddress) {
+      parts.push(this.establishmentData.numberAddress);
+    }
+    
+    if (this.establishmentData.cityName) {
+      parts.push(this.establishmentData.cityName);
+    }
+    
+    const fullAddress = parts.join(', ');
+    return fullAddress;
+  }
+
   // Method to highlight "gula" word in text
   highlightGula(text: string): string {
     if (!text) return text;

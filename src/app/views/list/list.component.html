@@ -119,7 +119,7 @@
             </ng-container>
             <ng-container *ngSwitchCase="'streetAddress'">
               <span [ngClass]="{ namePopUp: rowData['links'].googleUrl || rowData['links'].tripAdvisorUrl }" (click)="redirectDirection(rowData['links'], rowData['restaurantUidentifier'])">
-                {{ rowData[col.field] }}
+                {{ getFullAddress(rowData) }}
                 <i *ngIf="rowData['links'].googleUrl" class="mx-1 fa-regular fa-map"></i>
                 <i *ngIf="rowData['links'].tripAdvisorUrl && !rowData['links'].googleUrl" class="fa-solid fa-utensils"></i>
               </span>
